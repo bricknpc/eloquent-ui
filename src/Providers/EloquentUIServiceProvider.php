@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace BrickNPC\EloquentUI\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class EloquentUIServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'bui');
+
+        $this->publishes([
+            __DIR__ . '/../../config/eloquent-ui.php' => config_path('eloquent-ui.php'),
+        ], 'eloquent-ui-config');
+
+        $this->publishes([
+            __DIR__ . '/../../resources/views' => resource_path('views/vendor/bui'),
+        ], 'eloquent-ui-views');
+
+        $this->publishes([
+            __DIR__ . '/../../public/build' => public_path('vendor/eloquent-ui'),
+        ], 'eloquent-ui-assets');
+    }
+
+    public function register(): void
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../../config/eloquent-ui.php',
+            'eloquent-ui'
+        );
+    }
+}

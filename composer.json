@@ -1,0 +1,31 @@
+{
+  "name": "bricknpc/eloquent-ui",
+  "description": "PHP-first UI components and behaviours for Laravel applications using Blade.",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "BrickNPC\\EloquentUI\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BrickNPC\\EloquentUI\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^8.5",
+    "illuminate/support": "^12.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12.0",
+    "orchestra/workbench": "^9.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BrickNPC\\EloquentUI\\Providers\\EloquentUIServiceProvider"
+      ]
+    }
+  }
+}
