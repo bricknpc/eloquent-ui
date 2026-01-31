@@ -4,6 +4,43 @@ Eloquent UI is a PHP-first UI framework for Laravel applications. It provides hi
 confirmation modals, currency inputs, and interactive components without requiring developers to write Blade, 
 JavaScript, or CSS.
 
+It also helps you to stop having to write this boilerplate everywhere:
+
+```bladehtml
+<div class="row mb-3">
+    <label for="email" class="col-sm-3 col-form-label">Email:<span class="text-danger">*</span></label>
+    <div class="col-sm-9">
+        <div class="input-group has-validation">
+            <span class="input-group-text bg-secondary" id="email-addon">@</span>
+            <input
+                type="email"
+                name="email"
+                class="form-control @error($name) is-invalid @enderror"
+                id="email"
+                aria-describedby="email-addon email-feedback"
+                value="{{ old('email') }}"
+                required="required"
+                placeholder="example@email.com"
+            />
+            <div class="form-text">
+                Please enter your email address.
+            </div>
+            <div id="email-feedback" class="invalid-feedback">
+                @error('email')
+                    {{ $message }}
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+And replace it with this:
+
+```bladehtml
+<x-bui::form.email name="email" required hint="Please enter your email address." placeholder="example@email.com" prefix="@" />
+```
+
 This is a companion package to the [Eloquent Tables](https://github.com/bricknpc/eloquent-tables) package, which is 
 why there are no table components included.
 
@@ -32,15 +69,19 @@ php artisan vendor:publish --tag=eloquent-ui-views
 php artisan vendor:publish --tag=eloquent-ui-assets
 ```
 
-You will need to publish as least the assets because those contain the JavaScript and CSS required to render the 
+You will need to publish at least the assets because those contain the JavaScript and CSS required to render the 
 components. Include the assets in your layout:
 
 ```bladehtml
+<!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Other head elements -->
         @asset('vendor/eloquent-ui/css/eloquent-ui.css')
     </head>
     <body>
+        <!-- body contents -->
+        
         @asset('vendor/eloquent-ui/js/eloquent-ui.js')
     </body>
 </html>
