@@ -17,7 +17,7 @@ class EloquentUIServiceProvider extends ServiceProvider
         ], 'eloquent-ui-config');
 
         $this->publishes([
-            __DIR__ . '/../../resources/views' => resource_path('views/vendor/bui'),
+            __DIR__ . '/../../resources/views' => resource_path('views/vendor/eloquent-ui'),
         ], 'eloquent-ui-views');
 
         $this->publishes([
