@@ -29,7 +29,7 @@ class EloquentUIServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../../config/eloquent-ui.php',
-            'eloquent-ui'
+            'eloquent-ui',
         );
     }
 }
