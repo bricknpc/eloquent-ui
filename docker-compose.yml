@@ -11,6 +11,14 @@ services:
     working_dir: /app
     tty: true
 
+  vite:
+    image: node:20-alpine
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: sh -c "npm install && npm run build -- --watch"
+    tty: true
+
   docs:
     image: node:20-alpine
     volumes:

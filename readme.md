@@ -72,6 +72,22 @@ Login to the container:
 docker composer exec php bash
 ```
 
+### Installing dependencies
+
+```bash
+docker compose exec php composer install
+docker compose exec php npm install
+```
+
+### Building the frontend assets
+
+```bladehtml
+docker composer exec php npm run build
+```
+
+Make sure to build the assets when publishing new versions. When the docker containers are running, the assets will 
+automatically be rebuilt (it may take a few seconds for the changes to take effect).
+
 ### Tests and code quality
 
 ```bash
