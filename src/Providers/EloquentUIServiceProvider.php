@@ -11,6 +11,7 @@ class EloquentUIServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'bui');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../../lang');
 
         $this->publishes([
             __DIR__ . '/../../config/eloquent-ui.php' => config_path('eloquent-ui.php'),
@@ -23,6 +24,10 @@ class EloquentUIServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../public/build' => public_path('vendor/eloquent-ui'),
         ], 'eloquent-ui-assets');
+
+        $this->publishes([
+            __DIR__ . '/../../lang' => lang_path('vendor/eloquent-ui'),
+        ], 'eloquent-ui-translations');
     }
 
     public function register(): void

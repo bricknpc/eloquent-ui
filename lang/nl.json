@@ -1,0 +1,11 @@
+{
+  "The :attribute field is required.": "Het :attribute veld is verplicht.",
+  "The :attribute must be at least :min.": ":Attribute moet minimaal :min zijn.",
+  "The :attribute may not be greater than :max.": ":Attribute mag niet groter zijn dan :max.",
+  "The :attribute must have a valid currency.": ":Attribute moet een geldige valuta hebben.",
+  "The :attribute must have a valid whole number.": ":Attribute moet een geldig heel getal voor de comma hebben.",
+  "The :attribute must have a valid cents value between 00 and 99.": ":Attribute moet een geldige centen waarde tussen 00 en 99 hebben.",
+  "required": "verplicht",
+  "Select currency": "Kies valuta",
+  "Cents": "Centen"
+}

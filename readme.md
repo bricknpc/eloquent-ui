@@ -66,6 +66,7 @@ composer require bricknpc/eloquent-ui
 ```bash
 php artisan vendor:publish --tag=eloquent-ui-config
 php artisan vendor:publish --tag=eloquent-ui-views
+php artisan vendor:publish --tag=eloquent-ui-translations
 php artisan vendor:publish --tag=eloquent-ui-assets
 ```
 
