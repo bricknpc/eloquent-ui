@@ -24,7 +24,7 @@ trait HasCurrencyInput // @phpstan-ignore trait.unused
 
         $wholeIntValue = $wholeValue    !== null ? (int) $wholeValue : null;
         $centsIntValue = $centsValue    !== null ? (int) $centsValue : null;
-        $amount        = $wholeIntValue        !== null && $centsIntValue !== null
+        $amount        = $wholeIntValue !== null && $centsIntValue !== null
             ? $wholeIntValue + ($centsIntValue / 100)
             : null;
 
