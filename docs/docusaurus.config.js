@@ -87,9 +87,9 @@ const config = {
                 respectPrefersColorScheme: true,
             },
             navbar: {
-                title: 'Eloquent Tables',
+                title: 'Eloquent UI',
                 logo: {
-                    alt: 'Eloquent Tables Logo',
+                    alt: 'Eloquent UI Logo',
                     src: 'img/logo_transparent_small.png',
                 },
                 items: [

@@ -14,7 +14,7 @@ custom validation, and full accessibility compliance.
 In its most basic form, the Currency input component only needs a name to render a set of input fields for the user to 
 enter a currency value.
 
-```bladehtml
+```html
 <!-- Without label -->
 <x-eloquent-ui::input.currency name="price" />
 
@@ -31,7 +31,7 @@ If you want to use the currency component without a label and add your own label
 `label-id` property to the component and set its value to the ID of the label you want to use. This will tell the 
 component which label describes it. This is used for accessibility options like screen readers.
 
-```bladehtml
+```html
 <label id="price-label">Price</label>
 <x-eloquent-ui::input.currency name="price" label-id="price-label" />
 ```
@@ -39,7 +39,7 @@ component which label describes it. This is used for accessibility options like 
 If you want your label to focus the input field when clicked, add the `for` attribute to the label and set its value 
 to the name of the input field followed by `-whole`, e.g. `for="price-whole"`.
 
-```bladehtml
+```html
 <label for="price-whole" id="price-label">Price</label>
 <x-eloquent-ui::input.currency name="price" label-id="price-label" />
 ```
@@ -63,7 +63,7 @@ request upon submission.
 
 You can provide the currency value through the `currency` attribute, or by using the `currency` slot.
 
-```bladehtml
+```html
 <x-eloquent-ui::input.currency name="price" currency="USD" />
 
 <x-eloquent-ui::input.currency name="price" currency="€" />
@@ -93,7 +93,7 @@ $currencies = [
 
 ```
 
-```bladehtml
+```html
 <x-eloquent-ui::input.currency name="price" :currencies="$currencies" currency="EUR" />
 ```
 
@@ -233,8 +233,9 @@ can also write custom JavaScript or CSS code to handle custom logic and styling 
 :::warning[A note about validation]
 
 If you want to implement your own validation logic, make sure to account for leading zeros in the cents input field. 
-All values in the cent field are left padded with zeros until they are two digits long. Laravel's `numeric` validation 
-rule will not work correctly with this input, flagging any values with leading zeros as invalid.
+All values in the cent field are left padded with zeros until they are two digits long. Some of Laravel's numeric 
+validation rules like `integer` will not work correctly with this input, flagging any values with leading zeros as 
+invalid.
 
 :::
 
@@ -244,7 +245,7 @@ Like with all other components, the Currency component supports custom data attr
 the Currency component will add it to the topmost HTML element of the component, which is the `row` element when using 
 the version with a label, and the `input-group` element when using the version without a label.
 
-```bladehtml
+```html
 <!-- This is the element the data attributes are added to for labelled components -->
 <div {{ $attributes->merge(['class' => 'row']) }}> 
     The component

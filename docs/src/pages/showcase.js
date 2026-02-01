@@ -97,7 +97,7 @@ function ShowcaseCard({ title, description, image, link }) {
 
 export default function Showcase() {
     return (
-        <Layout title="Community Showcase" description="A showcase of projects using Eloquent Tables">
+        <Layout title="Community Showcase" description="A showcase of projects using Eloquent UI">
             <div style={{
                 maxWidth: '1200px',
                 minWidth: '60%',
@@ -120,7 +120,7 @@ export default function Showcase() {
                         maxWidth: '600px',
                         margin: '0 auto'
                     }}>
-                        Discover amazing projects built with Eloquent Tables by our community
+                        Discover amazing projects built with Eloquent UI by our community
                     </p>
                 </header>
 

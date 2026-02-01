@@ -7,7 +7,7 @@ title: Intro
 
 All input components are located in the `input` namespace.
 
-```bladehtml
+```html
 <x-eloquent-ui::input.type-here />
 ```
 
@@ -19,7 +19,7 @@ without a label that can be used anywhere or in case you want to add your own la
 The versions with a label have `-row` as a suffix to their name. The currency input, for instance, has these two 
 variants:
 
-```bladehtml
+```html
 <!-- With label -->
 <x-eloquent-ui::input.currency-row />
 
@@ -32,3 +32,14 @@ variants:
 All labelled components have a `labelPosition` property that can be set to one of the 
 `BrickNPC\EloquentUI\Enums\LabelPosition` values. The default value is set in the configuration file, but it can be 
 overridden on a per-component basis.
+
+## Advanced usage
+
+### Custom data attributes
+
+Every input component supports custom data attributes. You can add as many data attributes as you want to any component,
+and they will be added to the top most element of the component.
+
+```html
+<x-eloquent-ui::input.text data-custom-attribute="custom-value" />
+```
