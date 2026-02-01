@@ -7,5 +7,6 @@
   "The :attribute must have a valid cents value between 00 and 99.": ":Attribute moet een geldige centen waarde tussen 00 en 99 hebben.",
   "required": "verplicht",
   "Select currency": "Kies valuta",
-  "Cents": "Centen"
+  "Cents": "Centen",
+  "Currency of :attribute has been changed to :key (:value)": "Valuta van :attribute is gewijzigd naar :key (:value)"
 }

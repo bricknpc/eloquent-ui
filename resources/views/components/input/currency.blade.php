@@ -19,12 +19,13 @@
     'focus-switch'   => config('eloquent-ui.input.currency.focus-switch', true),
 ])
 <div
-    class="input-group has-validation"
+    {{ $attributes->merge(['class' => 'input-group has-validation']) }}
     role="group"
     @if($labelId)
         aria-labelledby="{{ $labelId }}"
     @endif
     data-{{ ns() }}-input="currency"
+    data-{{ ns() }}-name="{{ $name }}"
     data-{{ ns() }}-focus-switch="{{ $focusSwitch }}"
     @if($required) data-{{ ns() }}-required="true" @endif
     @if($min !== null) data-{{ ns() }}-min="{{ $min }}" @endif
@@ -59,7 +60,13 @@
                 @endforeach
             </ul>
         </div>
-        <div aria-live="polite" aria-atomic="true" class="visually-hidden" data-{{ ns() }}-currency-announcement="true"></div>
+        <div
+            aria-live="polite"
+            aria-atomic="true"
+            class="visually-hidden"
+            data-{{ ns() }}-currency-announcement="true"
+            data-{{ ns() }}-currency-announcement-message="{{ __('Currency of :attribute has been changed to :key (:value)') }}"
+        ></div>
     @elseif($currency !== null)
         <span
             class="input-group-text bg-{{ $addonStyle }}"

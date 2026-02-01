@@ -15,7 +15,33 @@ In its most basic form, the Currency input component only needs a name to render
 enter a currency value.
 
 ```bladehtml
+<!-- Without label -->
 <x-eloquent-ui::input.currency name="price" />
+
+<!-- With label -->
+<x-eloquent-ui::input.currency-row name="price" />
+```
+
+### Labels
+
+Like all other input components, the Currency component has a version with and a version without a label, distinguished 
+by the `-row` suffix in the component name.
+
+If you want to use the currency component without a label and add your own label instead, make sure to add the
+`label-id` property to the component and set its value to the ID of the label you want to use. This will tell the 
+component which label describes it. This is used for accessibility options like screen readers.
+
+```bladehtml
+<label id="price-label">Price</label>
+<x-eloquent-ui::input.currency name="price" label-id="price-label" />
+```
+
+If you want your label to focus the input field when clicked, add the `for` attribute to the label and set its value 
+to the name of the input field followed by `-whole`, e.g. `for="price-whole"`.
+
+```bladehtml
+<label for="price-whole" id="price-label">Price</label>
+<x-eloquent-ui::input.currency name="price" label-id="price-label" />
 ```
 
 ### Currencies
@@ -26,24 +52,36 @@ with multiple currencies.
 #### Without currency
 
 This is the simplest behaviour. You don't need to add anything to the component to use it without currency. Not providing 
-a component will render the component without currency options. The `{{ name }}-currency` hidden field will be empty 
-in this case.
+a currency will render the component without currency options. The `{{ name }}-currency` hidden field will be empty 
+in this case upon form submission.
 
 #### With a single currency
 
 If you provide a single currency value to the component, it will use a prefix for the component to show the currency. 
 It will also add this value to the `{{ name }}-currency` hidden field, so you can get the currency value from the 
-request.
+request upon submission.
+
+You can provide the currency value through the `currency` attribute, or by using the `currency` slot.
+
+```bladehtml
+<x-eloquent-ui::input.currency name="price" currency="USD" />
+
+<x-eloquent-ui::input.currency name="price" currency="€" />
+```
 
 #### With multiple currencies
 
 If you provide an array of currency values to the component, it will render a dropdown menu with the available 
-currencies. A dropdown menu will be rendered in front of the input fields, and changing the currency will update the 
-`{{ name }}-currency` hidden field accordingly. It will also broadcast the `CurrencyChanged` event when the currency 
-changes, which also updates the accessibility labels of the input fields.
+currencies. The dropdown menu will be rendered in front of the input fields, and changing the currency will update the 
+`{{ name }}-currency` hidden field accordingly. It will also broadcast the `CurrencyChanged` event on the JavaScript 
+side when the currency changes, and it also updates the accessibility labels of the input fields and announces the 
+new currency to screen readers.
 
-The currency array must be a key => value array, where the key is the currency value set in the `{{ name }}-currency` 
-hidden field, and the value is the currency name that should be shown in the dropdown menu.
+You can provide the currency array through the `currencies` attribute. You can also provide a selected currency value 
+through the `currency` attribute.
+
+The currency array must be a `'key' => 'value'` array, where the key is the currency value that will be set in the 
+`{{ name }}-currency` hidden field, and the value is the currency name that should be shown in the dropdown menu.
 
 ```php
 
@@ -53,6 +91,10 @@ $currencies = [
     // Other currencies...
 ];
 
+```
+
+```bladehtml
+<x-eloquent-ui::input.currency name="price" :currencies="$currencies" currency="EUR" />
 ```
 
 :::info[Validation of currencies]
@@ -66,11 +108,34 @@ well to make sure the frontend and backend validation logic matches.
 
 ## Features
 
-The Currency component supports the following features:
+The Currency component supports the following features.
 
-- **Tabindex** - The currency input component can be focused using the `tabindex` attribute. Keep in mind that the currency component consists of two or three input fields, depending on whether the currency is provided, so the tabindex for the next field will have to account for this.
-- **Usability** - When typing a number into the whole number field, pressing either `.` or `,` will automatically move focus to the cent field. You can disable this behaviour be setting the `focus-switch` property to `false` directly on the component or globally in your config file.
-- **Copy/paste support** - Pasting any number value into the whole number or cent field will automatically format it correctly and divide it into whole and cents. It can handle both `.` and `,` as decimal separators, and `.`, `,`, ` ` (space) and `_` as thousands separators.
+### Tabindex
+
+The currency input component can be focused using the `tabindex` attribute. Keep in mind that the currency component 
+consists of two or three input fields, depending on whether the currency is provided, so the tabindex for the next 
+field will have to account for this.
+
+If you provide a currency to the component (either a single currency or a list of available currencies), the currency 
+field will have the tabindex provided, the whole input field will have the tabindex provided plus one, and the cent 
+input field will have the tabindex provided plus two. In this case the next input element should have a tabindex of 
+`{{ $tabindex + 3 }}`.
+
+If you don't provide a currency to the component, the whole input field will have the tabindex provided and the cent 
+input field will have the tabindex provided plus one. In this case the next input element should have a tabindex of 
+`{{ $tabindex + 2 }}`.
+
+### Usability
+
+When typing a number into the whole number field, pressing either `.` or `,` will automatically move focus to the cent 
+field. You can disable this behaviour be setting the `focus-switch` property to `false` directly on the component or 
+globally in your config file.
+
+### Copy/paste support
+
+Pasting any number value into the whole number or cent field will automatically format it correctly and divide it into 
+whole and cents. It can handle both `.` and `,` as decimal separators, and `.`, `,`, ` ` (space) and `_` as 
+a thousand separators.
 
 ## Backend logic
 
@@ -135,9 +200,9 @@ class StoreOrderRequest extends FormRequest
 {
     use HasCurrencyInput;
 
-    public function getPrice(): int
+    public function getPrice(): ?int
     {
-        return $this->currency('price')->amountInCents;
+        return $this->currency('price')?->amountInCents;
     }
 }
 ```
@@ -158,9 +223,9 @@ Internally, the Currency input component is split into three separate inputs: a 
 a number field for the number of cents, and a number field for the whole number. They are added to the DOM with the 
 following names and ID's:
 
-- `{{ name }}-whole`
-- `{{ name }}-cents`
-- `{{ name }}-currency`
+- `input type="number" name="{{ $name }}-whole" id="{{ $name }}-whole"`
+- `input type="number" name="{{ $name }}-cents" id="{{ $name }}-cents"`
+- `input type="hidden" name="{{ $name }}-currency" id="{{ $name }}-currency"`
 
 You can get these inputs from the request manually by using their names and use them in your own validation logic. You 
 can also write custom JavaScript or CSS code to handle custom logic and styling by using these input names/ID's directly.
@@ -176,11 +241,17 @@ rule will not work correctly with this input, flagging any values with leading z
 ### Data attributes
 
 Like with all other components, the Currency component supports custom data attributes. Adding a `data-` attribute to 
-the Currency component will add it to the topmost HTML element of the component, which in this case is the `row`
-element.
+the Currency component will add it to the topmost HTML element of the component, which is the `row` element when using 
+the version with a label, and the `input-group` element when using the version without a label.
 
 ```bladehtml
-<div {{ $attributes->merge(['class' => 'row mb-3']) }}> <!-- <-- This is the element the data attributes are added to -->
+<!-- This is the element the data attributes are added to for labelled components -->
+<div {{ $attributes->merge(['class' => 'row']) }}> 
+    The component
+</div>
+
+<!-- This is the element the data attributes are added to for non-labelled components -->
+<div {{ $attributes->merge(['class' => 'input-group has-validation']) }}>
     The component
 </div>
 ```
