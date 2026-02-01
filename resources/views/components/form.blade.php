@@ -1,14 +1,14 @@
 @props([
     'action',
-    'method' => 'post',
-    'files' => false,
-    'novalidate' => false,
-    'autocomplete' => null,
-    'name' => null,
-    'target' => null,
-    'accept-charset' => null,
-    'rel' => null,
-    'force-csrf' => false,
+    'method'        => 'post',
+    'files'         => false,
+    'novalidate'    => false,
+    'autocomplete'  => null,
+    'name'          => null,
+    'target'        => null,
+    'acceptCharset' => null,
+    'rel'           => null,
+    'forceCsrf'     => false,
 ])
 
 @php
