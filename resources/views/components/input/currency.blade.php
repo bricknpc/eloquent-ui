@@ -4,6 +4,7 @@
 @props([
     'name',
     'label-id'       => null,
+    'form'           => null,
     'value'          => null,
     'currencies'     => [],
     'currency'       => null,
@@ -74,12 +75,19 @@
             @if($tabindex !== null) tabindex="{{ $tabindex }}" @endif
         >{{ $currency }}</span>
     @endif
-    <input type="hidden" name="{{ $name }}-currency" id="{{ $name }}-currency" value="{{ $currency }}" />
+    <input
+        type="hidden"
+        name="{{ $name }}-currency"
+        id="{{ $name }}-currency"
+        value="{{ $currency }}"
+        @if($form) form="{{ $form }}" @endif
+    />
     <input
         type="number"
         step="1"
         name="{{ $name }}-whole"
         id="{{ $name }}-whole"
+        @if($form) form="{{ $form }}" @endif
         @if($autofocus) autofocus @endif
         @if($tabindex !== null) tabindex="{{ count($currencies) > 0 || $currency !== null ? $tabindex + 1 : $tabindex }}" @endif
         @if($required) aria-required="true" required @endif
@@ -98,6 +106,7 @@
         name="{{ $name }}-cents"
         id="{{ $name }}-cents"
         aria-label="{{ __('Cents') }}"
+        @if($form) form="{{ $form }}" @endif
         @if($tabindex !== null) tabindex="{{ count($currencies) > 0 || $currency !== null ? $tabindex + 2 : $tabindex + 1 }}" @endif
         aria-describedby="@if($currency !== null && count($currencies) === 0){{ $name }}-currency-addon @endif @if($hint){{ $name }}-hint @endif @error($name){{ $name }}-feedback @enderror"
         @error($name) aria-invalid="true" @enderror

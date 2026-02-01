@@ -7,6 +7,7 @@
 @props([
     'name',
     'label'          => null,
+    'form'           => null,
     'value'          => null,
     'currencies'     => [],
     'currency'       => null,
