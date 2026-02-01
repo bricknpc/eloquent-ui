@@ -10,7 +10,7 @@ class EloquentUIServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'bui');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'eloquent-ui');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../../lang');
 
         $this->publishes([

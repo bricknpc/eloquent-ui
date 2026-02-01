@@ -1,0 +1,10 @@
+{
+  "position": 9.5,
+  "label": "Inputs",
+  "key": "inputs",
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index"
+  }
+}

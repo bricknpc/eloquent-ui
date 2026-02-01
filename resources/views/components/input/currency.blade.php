@@ -21,6 +21,7 @@
     'button-style'   => config('eloquent-ui.input.button-style', 'outline-secondary'),
     'required-style' => config('eloquent-ui.input.required-style', 'danger'),
     'addon-style'    => config('eloquent-ui.input.addon-style', 'secondary'),
+    'focus-switch'   => config('eloquent-ui.input.currency.focus-switch', true),
 ])
 <div {{ $attributes->merge(['class' => 'row mb-3']) }}>
     <label
@@ -43,6 +44,7 @@
             role="group"
             aria-labelledby="{{ $name }}-label"
             data-{{ ns() }}-input="currency"
+            data-{{ ns() }}-focus-switch="{{ $focusSwitch }}"
             @if($required) data-{{ ns() }}-input-required="true" @endif
             @if($min !== null) data-{{ ns() }}-input-min="{{ $min }}" @endif
             @if($max !== null) data-{{ ns() }}-input-max="{{ $max }}" @endif

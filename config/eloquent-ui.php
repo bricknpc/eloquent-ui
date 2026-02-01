@@ -24,13 +24,13 @@ return [
      */
     'input' => [
         /*
-         * The default position of the label relative to the input. Can be overridden on a per-field basis.
+         * The default position of the label relative to the input. Can be overridden on a per-input basis.
          */
         'position' => Position::Left,
         /*
-         * The default style to use for required fields. The style should be a Bootstrap 5 theme colour, like primary,
-         * secondary, success, danger, warning, info, light, or dark. If you have a custom theme, you can use that as
-         * well.
+         * The default style to use for the required input marker. The style should be a Bootstrap 5 theme colour, like
+         * primary, secondary, success, danger, warning, info, light, or dark. If you have a custom theme, you can use
+         * that as well.
          */
         'required-style' => 'danger',
         /*
@@ -44,17 +44,28 @@ return [
          * be a Bootstrap 5 theme colour, like primary, secondary, success, danger, warning, info, light, or dark. If
          * you have a custom theme, you can use that as well.
          */
-        'addon-style' => 'outline-secondary',
+        'addon-style' => 'secondary',
         /*
          * The icon displayed next to required fields. Can be any stringable value, like an HTML entity or an icon.
          */
-        'required-icon'  => '*',
+        'required-icon' => '*',
 
         /*
          * Currency input configuration
+         * ==================================================
+         *
+         * Configuration options for the currency input component.
          */
         'currency' => [
+            /*
+             * The symbol to use for the currency when no currency is selected.
+             */
             'generic-symbol' => '¤',
+            /*
+             * When set to true, typing a comma (,) or a dot (.) in the whole part of the currency input will switch
+             * the focus to the cent part.
+             */
+            'focus-switch' => true,
         ],
     ],
 ];
