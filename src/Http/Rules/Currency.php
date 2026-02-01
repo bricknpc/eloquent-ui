@@ -15,11 +15,7 @@ class Currency implements ValidationRule, DataAwareRule
     /**
      * @var array<string, mixed>
      */
-    public array $data = [] { // @phpstan-ignore-line
-        set {
-            $this->data = $value;
-        }
-    }
+    public array $data = []; // @phpstan-ignore-line
 
     /**
      * @var array<string, string>
@@ -42,6 +38,14 @@ class Currency implements ValidationRule, DataAwareRule
         private readonly ?float $max = null,
         private readonly ?array $currencies = null,
     ) {}
+
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function setData(array $data): void
+    {
+        $this->data = $data;
+    }
 
     /**
      * @param \Closure(null|string): PotentiallyTranslatedString $fail

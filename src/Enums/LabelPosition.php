@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BrickNPC\EloquentUI\Enums;
 
-enum Position: string
+enum LabelPosition: string
 {
     case Top    = 'top';
     case Bottom = 'bottom';
