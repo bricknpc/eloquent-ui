@@ -1,14 +1,11 @@
 @props([
     'action',
-    'method'        => 'post',
-    'files'         => false,
-    'novalidate'    => false,
-    'autocomplete'  => null,
-    'name'          => null,
-    'target'        => null,
-    'acceptCharset' => null,
-    'rel'           => null,
-    'forceCsrf'     => false,
+    'method'    => 'post',
+    'files'     => false,
+    'name'      => null,
+    'target'    => null,
+    'rel'       => null,
+    'forceCsrf' => false,
 ])
 
 @php
@@ -24,11 +21,8 @@
     action="{{ $action }}"
     method="{{ strtoupper($method) === 'GET' ? 'get' : 'post' }}"
     @if($files) enctype="multipart/form-data" @endif
-    @if($novalidate) novalidate @endif
-    @if($autocomplete !== null) autocomplete="{{ $autocomplete }}" @endif
     @if($name !== null) id="{{ $name }}" name="{{ $name }}" @endif
     @if($target !== null) target="{{ $target }}" @endif
-    @if($acceptCharset !== null) accept-charset="{{ $acceptCharset }}" @endif
     @if($computedRel !== null) rel="{{ $computedRel }}" @endif
     {{ $attributes }}
 >

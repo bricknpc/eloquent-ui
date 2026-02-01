@@ -95,49 +95,10 @@ This renders as:
 </form>
 ```
 
-### Optional attributes
+### Attributes
 
-The Form component supports several optional HTML form attributes:
-
-#### Autocomplete
-
-Control browser autocomplete behaviour for the entire form:
-
-```html
-<!-- Enable autocomplete (browser default) -->
-<x-eloquent-ui::form action="/login" autocomplete="on">
-    <!-- Fields -->
-</x-eloquent-ui::form>
-
-<!-- Disable autocomplete for sensitive data -->
-<x-eloquent-ui::form action="/payment" autocomplete="off">
-    <!-- Fields -->
-</x-eloquent-ui::form>
-```
-
-#### Novalidate
-
-Disable browser-side HTML5 validation when you prefer to rely on server-side validation:
-
-```html
-<x-eloquent-ui::form action="/products" :novalidate="true">
-    <!-- Fields will only use Laravel validation -->
-</x-eloquent-ui::form>
-```
-
-:::warning[No-validation]
-
-Setting `novalidate="true"` is only recommended when using Laravel's validation system to ensure correct and validated 
-input on the backend.
-
-:::
-
-:::tip[Server-side Validation]
-
-Using Laravel's server-side validation should always be implemented even when using client-side validation, because 
-client-side validation can be bypassed by malicious users.
-
-:::
+The Form component supports all HTML form attributes. For some attributes, additional logic is applied to
+ensure they work correctly with the Form component.
 
 #### Target
 
@@ -160,16 +121,6 @@ Specify where to display the form response:
 When using `target="_blank"`, the Form component automatically adds `rel="noopener noreferrer"` for security purposes.
 
 :::
-
-#### Accept-Charset
-
-Specify the character encoding for form submission:
-
-```html
-<x-eloquent-ui::form action="/products" accept-charset="UTF-8">
-    <!-- Fields -->
-</x-eloquent-ui::form>
-```
 
 #### Rel
 
@@ -259,6 +210,8 @@ You can add any custom HTML attributes to the form using Laravel's attribute bag
     class="needs-validation" 
     data-turbo="false"
     x-data="productForm()"
+    novalidate
+    autocomplete="off"
 >
     <!-- Fields -->
 </x-eloquent-ui::form>
@@ -273,6 +226,8 @@ This renders as:
     class="needs-validation" 
     data-turbo="false" 
     x-data="productForm()"
+    novalidate
+    autocomplete="off"
 >
     <!-- @csrf and fields -->
 </form>
