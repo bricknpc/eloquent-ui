@@ -15,7 +15,7 @@ class Currency implements ValidationRule, DataAwareRule
     /**
      * @var array<string, mixed>
      */
-    public array $data = []; // @phpstan-ignore-line
+    public array $requestData = [];
 
     /**
      * @var array<string, string>
@@ -44,7 +44,7 @@ class Currency implements ValidationRule, DataAwareRule
      */
     public function setData(array $data): static
     {
-        $this->data = $data;
+        $this->requestData = $data;
 
         return $this;
     }
@@ -58,12 +58,12 @@ class Currency implements ValidationRule, DataAwareRule
         $centsName    = $attribute . '-cents';
         $currencyName = $attribute . '-currency';
 
-        if ($this->required && (empty($this->data[$wholeName]) || empty($this->data[$centsName]))) {
+        if ($this->required && (empty($this->requestData[$wholeName]) || empty($this->requestData[$centsName]))) {
             $fail(__($this->errorMessages['required']));
         }
 
         // If the field is not required and the value is empty, return early.
-        if (!$this->required && empty($this->data[$wholeName])) {
+        if (!$this->required && empty($this->requestData[$wholeName])) {
             return;
         }
 
@@ -72,10 +72,10 @@ class Currency implements ValidationRule, DataAwareRule
         $this->validateCurrency($currencyName, $fail);
 
         /** @var string $wholeValue */
-        $wholeValue = $this->data[$wholeName];
+        $wholeValue = $this->requestData[$wholeName];
 
         /** @var string $centsValue */
-        $centsValue = $this->data[$centsName];
+        $centsValue = $this->requestData[$centsName];
 
         $value = ((int) $wholeValue) + ((int) $centsValue) / 100;
 
@@ -87,7 +87,7 @@ class Currency implements ValidationRule, DataAwareRule
      */
     private function validateWhole(string $name, \Closure $fail): void
     {
-        $wholeValue = $this->data[$name];
+        $wholeValue = $this->requestData[$name];
 
         if (!ctype_digit($wholeValue)) {
             $fail(__($this->errorMessages['whole']));
@@ -100,7 +100,7 @@ class Currency implements ValidationRule, DataAwareRule
     private function validateCents(string $name, \Closure $fail): void
     {
         /** @var string $centsValue */
-        $centsValue = $this->data[$name] ?? '00';
+        $centsValue = $this->requestData[$name] ?? '00';
 
         if (strlen($centsValue) !== 2) {
             $fail(__($this->errorMessages['cents']));
@@ -122,11 +122,11 @@ class Currency implements ValidationRule, DataAwareRule
             return;
         }
 
-        if (!isset($this->data[$name])) {
+        if (!isset($this->requestData[$name])) {
             return;
         }
 
-        if (!in_array($this->data[$name], array_keys($this->currencies), true)) {
+        if (!in_array($this->requestData[$name], array_keys($this->currencies), true)) {
             $fail(__($this->errorMessages['currency']));
         }
     }
