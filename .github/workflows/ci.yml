@@ -1,0 +1,214 @@
+name: Eloquent UI CI
+
+on:
+  push:
+    branches:
+      - "main"
+      - "release/**"
+      - "hotfix/**"
+  pull_request:
+    branches: [ "**" ]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.4', '8.5']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, json, pdo
+          coverage: xdebug
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-version }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHPUnit tests with coverage
+        run: vendor/bin/phpunit --coverage-text --coverage-cobertura=coverage.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        if: matrix.php-version == '8.5'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: true
+
+      - name: Get coverage percentage
+        if: matrix.php-version == '8.5'
+        id: coverage
+        run: |
+          COVERAGE=$(php -r "
+            \$xml = simplexml_load_file('coverage.xml');
+            \$metrics = \$xml->xpath('//coverage')[0];
+            \$lineRate = floatval(\$metrics['line-rate']) * 100;
+            echo number_format(\$lineRate, 2);
+          ")
+          echo "current=$COVERAGE" >> $GITHUB_OUTPUT
+          echo "Current coverage: $COVERAGE%"
+
+      - name: Download previous coverage
+        if: matrix.php-version == '8.5'
+        uses: actions/cache@v3
+        with:
+          path: previous-coverage.txt
+          key: coverage-${{ github.ref }}-${{ github.sha }}
+          restore-keys: |
+            coverage-${{ github.ref }}-
+
+      - name: Compare coverage
+        if: matrix.php-version == '8.5'
+        run: |
+          CURRENT_COVERAGE=${{ steps.coverage.outputs.current }}
+          
+          if [ -f previous-coverage.txt ]; then
+            PREVIOUS_COVERAGE=$(cat previous-coverage.txt)
+            echo "Previous coverage: $PREVIOUS_COVERAGE%"
+            echo "Current coverage: $CURRENT_COVERAGE%"
+          
+            if (( $(echo "$CURRENT_COVERAGE < $PREVIOUS_COVERAGE" | bc -l) )); then
+              echo "❌ Coverage decreased from $PREVIOUS_COVERAGE% to $CURRENT_COVERAGE%"
+              exit 1
+            else
+              echo "✅ Coverage maintained or improved: $PREVIOUS_COVERAGE% → $CURRENT_COVERAGE%"
+            fi
+          else
+            echo "No previous coverage found. Current coverage: $CURRENT_COVERAGE%"
+          fi
+          
+          echo "$CURRENT_COVERAGE" > previous-coverage.txt
+
+      - name: Save current coverage
+        if: matrix.php-version == '8.5' && always()
+        uses: actions/cache/save@v3
+        with:
+          path: previous-coverage.txt
+          key: coverage-${{ github.ref }}-${{ github.sha }}
+
+  phpstan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.4', '8.5']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, json, pdo
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-version }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --error-format=github
+
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.4', '8.5']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, json, pdo
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-version }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHP-CS-Fixer (dry-run)
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff --verbose --allow-risky=yes --config=.php-cs-fixer.php
+
+  deploy-docs:
+    runs-on: ubuntu-latest
+    # Only deploy on push to main branch
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [phpunit, phpstan, php-cs-fixer]
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./docs
+        run: npm ci
+
+      - name: Build Docusaurus
+        working-directory: ./docs
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs/build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
