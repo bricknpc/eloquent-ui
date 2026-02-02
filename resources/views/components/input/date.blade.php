@@ -1,0 +1,1 @@
+<x-eloquent-ui::input.text type="date" {{ $attributes }} />

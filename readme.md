@@ -43,7 +43,9 @@ It also helps you to stop having to write boilerplate like this:
 And replace it with this:
 
 ```bladehtml
-<x-eloquent-ui::form.email name="email" required hint="Please enter your email address." placeholder="example@email.com" prefix="@" />
+<x-eloquent-ui::form.row for="email" required>
+    <x-eloquent-ui::form.email name="email" required hint="Please enter your email address." placeholder="example@email.com" />
+</x-eloquent-ui::form.row>
 ```
 
 This is a companion package to the [Eloquent Tables](https://github.com/bricknpc/eloquent-tables) package, which is 

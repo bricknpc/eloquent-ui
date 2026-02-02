@@ -1,10 +1,10 @@
 ---
-sidebar_position: 3
-title: Currency Input
+sidebar_position: 15
+title: Currency
 description: A fully accessible currency input component with support for multiple currencies, validation, and locale-specific formatting.
 ---
 
-# Currency Input
+# Currency
 
 The Currency Input component provides a user-friendly way to input monetary values with support for multiple currencies, 
 custom validation, and full accessibility compliance.
