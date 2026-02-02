@@ -75,7 +75,7 @@ class Currency implements ValidationRule, DataAwareRule
         $wholeValue = $this->requestData[$wholeName];
 
         /** @var string $centsValue */
-        $centsValue = $this->requestData[$centsName];
+        $centsValue = $this->requestData[$centsName] ?? '00';
 
         $value = ((int) $wholeValue) + ((int) $centsValue) / 100;
 

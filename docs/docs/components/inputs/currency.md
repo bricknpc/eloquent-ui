@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 title: Currency Input
 description: A fully accessible currency input component with support for multiple currencies, validation, and locale-specific formatting.
 ---
@@ -15,33 +15,34 @@ In its most basic form, the Currency input component only needs a name to render
 enter a currency value.
 
 ```html
-<!-- Without label -->
 <x-eloquent-ui::input.currency name="price" />
-
-<!-- With label -->
-<x-eloquent-ui::input.currency-row name="price" />
 ```
 
 ### Labels
 
-Like all other input components, the Currency component has a version with and a version without a label, distinguished 
-by the `-row` suffix in the component name.
+Like all other input components, the Currency component has no label by default. If you want to add a label, you can 
+either add your own label element or use the [Row](../form/row) component.
 
-If you want to use the currency component without a label and add your own label instead, make sure to add the
-`label-id` property to the component and set its value to the ID of the label you want to use. This will tell the 
-component which label describes it. This is used for accessibility options like screen readers.
+Because the Currency component renders three separate input fields, you can't use the `for` attribute in the normal 
+way. The first of the input elements rendered is the whole number input field, so you'll have to add `-whole` to the 
+`for` attribute value.
 
-```html
-<label id="price-label">Price</label>
-<x-eloquent-ui::input.currency name="price" label-id="price-label" />
-```
-
-If you want your label to focus the input field when clicked, add the `for` attribute to the label and set its value 
-to the name of the input field followed by `-whole`, e.g. `for="price-whole"`.
+You should also provide an `id` attribute to the label element, so you can tell the Currency component which label 
+describes it.
 
 ```html
 <label for="price-whole" id="price-label">Price</label>
 <x-eloquent-ui::input.currency name="price" label-id="price-label" />
+```
+
+You should do the same when using the Row component. If you don't set an `id` attribute on the Row component, the 
+component will use the `for` value as the ID suffixed by `-label`. So in the example below, it would be 
+`"price-whole-label"`.
+
+```html
+<x-eloquent-ui::form.row for="price-whole" id="price-label" label="Price">
+    <x-eloquent-ui::input.currency name="price" label-id="price-label" />
+</x-eloquent-ui::form.row>
 ```
 
 ### Currencies
@@ -106,6 +107,8 @@ well to make sure the frontend and backend validation logic matches.
 
 ### Optional attributes
 
+todo describe the other attributes
+
 ## Features
 
 The Currency component supports the following features.
@@ -141,7 +144,7 @@ a thousand separators.
 
 ### Validation
 
-Because the component internally renders three separate input fields, you can't use the default Laravel validation 
+Because the component internally renders multiple separate input fields, you can't use the default Laravel validation 
 rules to validate the currency value. Instead, you'll need to use the provided `Currency` validation rule.
 
 ```php
@@ -242,16 +245,9 @@ invalid.
 ### Data attributes
 
 Like with all other components, the Currency component supports custom data attributes. Adding a `data-` attribute to 
-the Currency component will add it to the topmost HTML element of the component, which is the `row` element when using 
-the version with a label, and the `input-group` element when using the version without a label.
+the Currency component will add it to the topmost HTML element of the component, which is the `input-group` element.
 
 ```html
-<!-- This is the element the data attributes are added to for labelled components -->
-<div {{ $attributes->merge(['class' => 'row']) }}> 
-    The component
-</div>
-
-<!-- This is the element the data attributes are added to for non-labelled components -->
 <div {{ $attributes->merge(['class' => 'input-group has-validation']) }}>
     The component
 </div>

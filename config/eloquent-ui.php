@@ -46,6 +46,12 @@ return [
          */
         'addon-style' => 'secondary',
         /*
+         * The default style to use for prefix and suffix buttons that are part of input elements. The style should
+         * be a Bootstrap 5 theme colour, like primary, secondary, success, danger, warning, info, light, or dark. If
+         * you have a custom theme, you can use that as well. Outline styles will also work for this.
+         */
+        'addon-button-style' => 'secondary',
+        /*
          * The icon displayed next to required fields. Can be any stringable value, like an HTML entity or an icon.
          */
         'required-icon' => '*',

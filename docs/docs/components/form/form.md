@@ -1,10 +1,10 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 title: Form
 description: A secure, accessible form wrapper component with built-in CSRF protection, method spoofing, and support for file uploads.
 ---
 
-# Forms
+# Form
 
 The Form component provides a secure wrapper around HTML forms with built-in Laravel integration, including CSRF
 protection, HTTP method spoofing, and support for file uploads.

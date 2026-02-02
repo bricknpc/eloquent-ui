@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BrickNPC\EloquentUI\Tests\Feature\Components;
+namespace BrickNPC\EloquentUI\Tests\Feature\Http\Components;
 
 use BrickNPC\EloquentUI\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
