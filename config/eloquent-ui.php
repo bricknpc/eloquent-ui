@@ -73,5 +73,23 @@ return [
              */
             'focus-switch' => true,
         ],
+
+        /*
+         * Password input configuration
+         * ==================================================
+         *
+         * Configuration options for the password input component.
+         */
+        'password' => [
+            /*
+             * When set to true, adds an icon to the input that allows the user to switch between password and text
+             * input.
+             */
+            'allow-type-switch' => 'true',
+            /*
+             * The icon to use for the type switch.
+             */
+            'switch-icon' => '👁',
+        ],
     ],
 ];
