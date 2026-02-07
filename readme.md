@@ -85,11 +85,56 @@ protected function casts(): array
 }
 ```
 
+**In your form request:**
+```php
+use BrickNPC\EloquentUI\Http\Traits\HasCurrencyInput;
+
+protected function rules(): array
+{
+    return [
+        'amount' => new Currency(
+            required: true,
+            min: 0,
+            max: 9999.99,
+            currencies: ['EUR', 'JPY'],
+        ),
+    ];
+}
+```
+
 **In your Blade view:**
 ```html
 <x-eloquent-ui::form action="#" :model="$order">
     <x-eloquent-ui::currency name="amount" label="Amount" />
 </x-eloquent-ui::form>
+```
+
+**In your backend code:**
+```php
+$model = MyModel::first();
+
+$model->amount->whole; // The whole amount before the decimal separator
+$model->amount->cents; // The cent amount after the decimal separator
+$model->amount->amount; // The whole amount as a float
+$model->amount->amountInCents; // The total amount in cents as an integer
+$model->amount->currency; // The currency code
+```
+
+**Setting amounts**
+```php
+$model = MyModel::first();
+
+$model->amount = 123.45; // Sets the amount to 123.45
+
+$model->amount = new \BrickNPC\EloquentUI\ValueObjects\Currency(
+    100, 
+    10, 
+    1.10,
+    110,
+    'EUR'
+); // Set the amount as a currency
+
+$model->amount = 199; // Set the amount in cents to 1.99
 ```
 
 The component automatically handles:
