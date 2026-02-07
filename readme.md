@@ -143,12 +143,11 @@ components. Include the assets in your layout:
 <html lang="en">
     <head>
         <!-- Other head elements -->
-        @asset('vendor/eloquent-ui/css/eloquent-ui.css')
+        <link rel="stylesheet" href="{{ asset('vendor/eloquent-ui/eloquent-ui.css') }}" />
     </head>
     <body>
         <!-- body contents -->
-        
-        @asset('vendor/eloquent-ui/js/eloquent-ui.js')
+        <script src="{{ asset('vendor/eloquent-ui/eloquent-ui.js') }}"></script>
     </body>
 </html>
 ```
