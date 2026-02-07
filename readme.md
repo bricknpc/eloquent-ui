@@ -1,5 +1,7 @@
 # Eloquent UI
 
+![Logo](eloquent-ui-png-nobg.png)
+
 Eloquent UI is a comprehensive, PHP-first UI framework for Laravel applications that bridges the gap between backend 
 and frontend. Unlike traditional component libraries that only provide Blade templates, Eloquent UI delivers a complete 
 solution with high-level UI components, custom casts, validation rules, database schema helpers, and request handling — 
