@@ -11,8 +11,16 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 /**
  * @implements CastsAttributes<Currency, Currency>
  */
-class CurrencyCast implements CastsAttributes
+class CurrencyCast implements CastsAttributes, \Stringable
 {
+    /**
+     * Get the string representation of the cast.
+     */
+    public function __toString(): string
+    {
+        return 'currency';
+    }
+
     /**
      * Cast the given value.
      *

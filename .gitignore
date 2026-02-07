@@ -1,4 +1,6 @@
 .idea/
 vendor/
 node_modules/
+tests/coverage/html/*
+!tests/coverage/html/.gitkeep
 .php-cs-fixer.cache
