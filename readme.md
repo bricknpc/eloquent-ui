@@ -183,6 +183,7 @@ Up the docker container and install the dependencies.
 ```bash
 docker-compose up -d
 docker-compose exec php composer install
+docker-compose exec php npm ci
 ```
 
 ### Executing commands in the container
@@ -204,6 +205,15 @@ docker-compose exec php bash
 ```bash
 docker-compose down
 ```
+
+### Build frontend assets
+
+```bash
+docker-compose exec php npm run build
+```
+
+The build will automatically run anytime you change anything as long as the container is running. Make sure to commit 
+and publish the build files when creating new versions. It may take a few minutes for changes to take effect.
 
 ### Adding new components
 
