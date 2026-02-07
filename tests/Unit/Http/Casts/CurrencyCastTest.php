@@ -6,7 +6,6 @@ namespace BrickNPC\EloquentUI\Tests\Unit\Http\Casts;
 
 use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Eloquent\Model;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\Attributes\CoversClass;
 use BrickNPC\EloquentUI\ValueObjects\Currency;
 use BrickNPC\EloquentUI\Http\Casts\CurrencyCast;
@@ -15,7 +14,6 @@ use BrickNPC\EloquentUI\Http\Casts\CurrencyCast;
  * @internal
  */
 #[CoversClass(CurrencyCast::class)]
-#[UsesClass(Currency::class)]
 class CurrencyCastTest extends TestCase
 {
     private CurrencyCast $cast;
@@ -27,7 +25,7 @@ class CurrencyCastTest extends TestCase
         parent::setUp();
 
         $this->cast  = new CurrencyCast();
-        $this->model = $this->createMock(Model::class);
+        $this->model = new class extends Model {};
     }
 
     public function test_it_casts_cents_to_currency_object(): void
@@ -282,5 +280,10 @@ class CurrencyCastTest extends TestCase
             'total_amount'          => 0,
             'total_amount_currency' => null,
         ], $result);
+    }
+
+    public function test_it_returns_the_cast_name_when_cast_to_string(): void
+    {
+        $this->assertSame('currency', (string) $this->cast);
     }
 }

@@ -3,9 +3,10 @@
 ![Logo](eloquent-ui-png-nobg-horizontal.png)
 
 Eloquent UI is a comprehensive, PHP-first UI framework for Laravel applications that bridges the gap between backend 
-and frontend. Unlike traditional component libraries that only provide Blade templates, Eloquent UI delivers a complete 
-solution with high-level UI components, custom casts, validation rules, database schema helpers, and request handling. 
-Everything you need to build rich, interactive frontends without writing repetitive boilerplate.
+and frontend. Unlike traditional component libraries that only provide frontend components, Eloquent UI delivers a 
+complete full-stack solution with high-level UI components, custom casts, validation rules, database schema helpers, 
+and request handling. Everything you need to build rich, interactive frontends backed by backend integrations without 
+writing repetitive boilerplate.
 
 ## Full-Stack Components
 
@@ -58,7 +59,7 @@ Eloquent UI eliminates the need to write repetitive HTML, Blade directives, and 
 You write this:
 
 ```html
-<x-eloquent-ui::form.email name="email" label="Email": hint="Please enter your email address." placeholder="example@email.com" required="true">
+<x-eloquent-ui::form.email name="email" label="Email:" hint="Please enter your email address." placeholder="example@email.com" required="true">
     <x-slot:prefix>
         <x-eloquent-ui::input.addon.text>@</x-eloquent-ui::input.addon.text>
     </x-slot:prefix>

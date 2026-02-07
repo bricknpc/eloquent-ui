@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Schema\Blueprint;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Illuminate\Database\Schema\ColumnDefinition;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use BrickNPC\EloquentUI\Database\Schema\CurrencyColumn;
 
 /**
@@ -16,36 +17,53 @@ use BrickNPC\EloquentUI\Database\Schema\CurrencyColumn;
 #[CoversClass(CurrencyColumn::class)]
 class CurrencyColumnTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     private Blueprint $blueprint;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->blueprint = $this->createMock(Blueprint::class);
+        $this->blueprint = \Mockery::mock(Blueprint::class);
+    }
+
+    protected function tearDown(): void
+    {
+        \Mockery::close();
+        parent::tearDown();
     }
 
     public function test_it_creates_basic_currency_columns(): void
     {
-        $bigIntColumn = $this->createMock(ColumnDefinition::class);
+        $bigIntColumn = \Mockery::mock(ColumnDefinition::class);
+        $bigIntColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
+        ;
+
+        $stringColumn = \Mockery::mock(ColumnDefinition::class);
+        $stringColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
+        ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('bigInteger')
+            ->shouldReceive('bigInteger')
+            ->once()
             ->with('amount')
-            ->willReturn($bigIntColumn)
+            ->andReturn($bigIntColumn)
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('string')
+            ->shouldReceive('string')
+            ->once()
             ->with('amount_currency')
-            ->willReturn($this->createMock(ColumnDefinition::class))
+            ->andReturn($stringColumn)
         ;
 
         $this->blueprint
-            ->expects($this->never())
-            ->method('index')
+            ->shouldNotReceive('index')
         ;
 
         $column = new CurrencyColumn($this->blueprint, 'amount');
@@ -54,32 +72,32 @@ class CurrencyColumnTest extends TestCase
 
     public function test_it_creates_nullable_currency_columns(): void
     {
-        $bigIntColumn = $this->createMock(ColumnDefinition::class);
+        $bigIntColumn = \Mockery::mock(ColumnDefinition::class);
         $bigIntColumn
-            ->expects($this->once())
-            ->method('nullable')
-            ->willReturn($bigIntColumn)
+            ->shouldReceive('nullable')
+            ->once()
+            ->andReturnSelf()
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('bigInteger')
+            ->shouldReceive('bigInteger')
+            ->once()
             ->with('amount')
-            ->willReturn($bigIntColumn)
+            ->andReturn($bigIntColumn)
         ;
 
-        $stringColumn = $this->createMock(ColumnDefinition::class);
+        $stringColumn = \Mockery::mock(ColumnDefinition::class);
         $stringColumn
-            ->expects($this->once())
-            ->method('nullable')
-            ->willReturn($stringColumn)
+            ->shouldReceive('nullable')
+            ->once()
+            ->andReturnSelf()
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('string')
+            ->shouldReceive('string')
+            ->once()
             ->with('amount_currency')
-            ->willReturn($stringColumn)
+            ->andReturn($stringColumn)
         ;
 
         $column = new CurrencyColumn($this->blueprint, 'amount');
@@ -88,25 +106,35 @@ class CurrencyColumnTest extends TestCase
 
     public function test_it_creates_currency_columns_with_single_index(): void
     {
-        $bigIntColumn = $this->createMock(ColumnDefinition::class);
+        $bigIntColumn = \Mockery::mock(ColumnDefinition::class);
+        $bigIntColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
+        ;
+
+        $stringColumn = \Mockery::mock(ColumnDefinition::class);
+        $stringColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
+        ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('bigInteger')
+            ->shouldReceive('bigInteger')
+            ->once()
             ->with('amount')
-            ->willReturn($bigIntColumn)
+            ->andReturn($bigIntColumn)
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('string')
+            ->shouldReceive('string')
+            ->once()
             ->with('amount_currency')
-            ->willReturn($this->createMock(ColumnDefinition::class))
+            ->andReturn($stringColumn)
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('index')
+            ->shouldReceive('index')
+            ->once()
             ->with('amount')
         ;
 
@@ -116,25 +144,35 @@ class CurrencyColumnTest extends TestCase
 
     public function test_it_creates_currency_columns_with_composite_index(): void
     {
-        $bigIntColumn = $this->createMock(ColumnDefinition::class);
+        $bigIntColumn = \Mockery::mock(ColumnDefinition::class);
+        $bigIntColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
+        ;
+
+        $stringColumn = \Mockery::mock(ColumnDefinition::class);
+        $stringColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
+        ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('bigInteger')
+            ->shouldReceive('bigInteger')
+            ->once()
             ->with('amount')
-            ->willReturn($bigIntColumn)
+            ->andReturn($bigIntColumn)
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('string')
+            ->shouldReceive('string')
+            ->once()
             ->with('amount_currency')
-            ->willReturn($this->createMock(ColumnDefinition::class))
+            ->andReturn($stringColumn)
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('index')
+            ->shouldReceive('index')
+            ->once()
             ->with(['amount', 'amount_currency'])
         ;
 
@@ -144,37 +182,37 @@ class CurrencyColumnTest extends TestCase
 
     public function test_it_creates_nullable_currency_columns_with_composite_index(): void
     {
-        $bigIntColumn = $this->createMock(ColumnDefinition::class);
+        $bigIntColumn = \Mockery::mock(ColumnDefinition::class);
         $bigIntColumn
-            ->expects($this->once())
-            ->method('nullable')
-            ->willReturn($bigIntColumn)
+            ->shouldReceive('nullable')
+            ->once()
+            ->andReturnSelf()
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('bigInteger')
+            ->shouldReceive('bigInteger')
+            ->once()
             ->with('total_amount')
-            ->willReturn($bigIntColumn)
+            ->andReturn($bigIntColumn)
         ;
 
-        $stringColumn = $this->createMock(ColumnDefinition::class);
+        $stringColumn = \Mockery::mock(ColumnDefinition::class);
         $stringColumn
-            ->expects($this->once())
-            ->method('nullable')
-            ->willReturn($stringColumn)
+            ->shouldReceive('nullable')
+            ->once()
+            ->andReturnSelf()
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('string')
+            ->shouldReceive('string')
+            ->once()
             ->with('total_amount_currency')
-            ->willReturn($stringColumn)
+            ->andReturn($stringColumn)
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('index')
+            ->shouldReceive('index')
+            ->once()
             ->with(['total_amount', 'total_amount_currency'])
         ;
 
@@ -184,11 +222,32 @@ class CurrencyColumnTest extends TestCase
 
     public function test_it_allows_method_chaining(): void
     {
-        $bigIntColumn = $this->createMock(ColumnDefinition::class);
-        $bigIntColumn->method('nullable')->willReturn($bigIntColumn);
+        $bigIntColumn = \Mockery::mock(ColumnDefinition::class);
+        $bigIntColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
+        ;
 
-        $this->blueprint->method('bigInteger')->willReturn($bigIntColumn);
-        $this->blueprint->method('string')->willReturn($this->createMock(ColumnDefinition::class));
+        $stringColumn = \Mockery::mock(ColumnDefinition::class);
+        $stringColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
+        ;
+
+        $this->blueprint
+            ->shouldReceive('bigInteger')
+            ->andReturn($bigIntColumn)
+        ;
+
+        $this->blueprint
+            ->shouldReceive('string')
+            ->andReturn($stringColumn)
+        ;
+
+        $this->blueprint
+            ->shouldReceive('index')
+            ->andReturnSelf()
+        ;
 
         $column = new CurrencyColumn($this->blueprint, 'amount');
 
@@ -199,20 +258,26 @@ class CurrencyColumnTest extends TestCase
 
     public function test_it_creates_columns_automatically_on_destruct(): void
     {
-        $bigIntColumn = $this->createMock(ColumnDefinition::class);
+        $bigIntColumn = \Mockery::mock(ColumnDefinition::class);
 
-        $this->blueprint
-            ->expects($this->once())
-            ->method('bigInteger')
-            ->with('price')
-            ->willReturn($bigIntColumn)
+        $stringColumn = \Mockery::mock(ColumnDefinition::class);
+        $stringColumn
+            ->shouldReceive('nullable')
+            ->andReturnSelf()
         ;
 
         $this->blueprint
-            ->expects($this->once())
-            ->method('string')
+            ->shouldReceive('bigInteger')
+            ->once()
+            ->with('price')
+            ->andReturn($bigIntColumn)
+        ;
+
+        $this->blueprint
+            ->shouldReceive('string')
+            ->once()
             ->with('price_currency')
-            ->willReturn($this->createMock(ColumnDefinition::class))
+            ->andReturn($stringColumn)
         ;
 
         // Don't call create() explicitly - let __destruct handle it

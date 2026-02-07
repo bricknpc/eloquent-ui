@@ -166,4 +166,13 @@ class TextTest extends TestCase
 
         $view->assertSee('class="form-control custom-class"', false);
     }
+
+    public function test_providing_a_label_renders_a_row(): void
+    {
+        $view = $this->blade('<x-eloquent-ui::input.text name="name" label="Label text:" />');
+
+        $view->assertSee('row', false);
+        $view->assertSee('<label', false);
+        $view->assertSee('Label text:', false);
+    }
 }

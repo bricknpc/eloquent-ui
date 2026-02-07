@@ -22,15 +22,16 @@ trait HasCurrencyInput // @phpstan-ignore trait.unused
         $centsValue    = $this->input($centsName, null);
         $currencyValue = $this->input($currencyName, null);
 
-        $wholeIntValue = $wholeValue    !== null ? (int) $wholeValue : null;
-        $centsIntValue = $centsValue    !== null ? (int) $centsValue : null;
-        $amount        = $wholeIntValue !== null && $centsIntValue !== null
-            ? $wholeIntValue + ($centsIntValue / 100)
-            : null;
+        // Convert to integers, treating null/empty as 0
+        $wholeIntValue = $wholeValue !== null && $wholeValue !== '' ? (int) $wholeValue : 0;
+        $centsIntValue = $centsValue !== null && $centsValue !== '' ? (int) $centsValue : 0;
 
-        if ($wholeIntValue === null && $centsIntValue === null) {
+        // If both inputs are missing/empty, return default
+        if (($wholeValue === null || $wholeValue === '') && ($centsValue === null || $centsValue === '')) {
             return $default;
         }
+
+        $amount = $wholeIntValue + ($centsIntValue / 100);
 
         return new Currency(
             whole: $wholeIntValue,

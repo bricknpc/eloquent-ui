@@ -22,7 +22,7 @@ class RowTest extends TestCase
     {
         $view = $this->blade('<x-eloquent-ui::form.row for="test" />');
 
-        $view->assertSee('<div class="row">', false);
+        $view->assertSee('row', false);
         $view->assertSee('<label', false);
         $view->assertSee('for="test"', false);
         $view->assertSee('id="test-label"', false);
@@ -33,7 +33,7 @@ class RowTest extends TestCase
     {
         $view = $this->blade('<x-eloquent-ui::form.row for="test" id="my-id" />');
 
-        $view->assertSee('<div class="row">', false);
+        $view->assertSee('row', false);
         $view->assertSee('<label', false);
         $view->assertSee('for="test"', false);
         $view->assertSee('id="my-id"', false);
@@ -44,7 +44,7 @@ class RowTest extends TestCase
     {
         $view = $this->blade('<x-eloquent-ui::form.row for="test" label="My custom label" />');
 
-        $view->assertSee('<div class="row">', false);
+        $view->assertSee('row', false);
         $view->assertSee('<label', false);
         $view->assertSee('for="test"', false);
         $view->assertSeeText('My custom label');

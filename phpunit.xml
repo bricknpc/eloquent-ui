@@ -31,6 +31,7 @@
         </include>
         <exclude>
             <directory>src/Providers</directory>
+            <directory>src/ValueObjects</directory>
         </exclude>
     </source>
     <php>

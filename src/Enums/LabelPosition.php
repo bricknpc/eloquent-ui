@@ -13,6 +13,9 @@ enum LabelPosition: string
     case Left   = 'left';
     case Right  = 'right';
 
+    /**
+     * @throws InvalidColumns
+     */
     public function getLabelClasses(int $labelWidth = 3): string
     {
         if ($labelWidth < 1 || $labelWidth > 12) {
@@ -27,6 +30,9 @@ enum LabelPosition: string
         };
     }
 
+    /**
+     * @throws InvalidColumns
+     */
     public function getInputClasses(int $labelWidth = 3): string
     {
         if ($labelWidth < 1 || $labelWidth > 12) {
