@@ -16,7 +16,7 @@ services:
     volumes:
       - ./:/app
     working_dir: /app
-    command: sh -c "npm install && npm run build -- --watch"
+    command: sh -c "npm ci && npm run build -- --watch"
     tty: true
 
   docs:
@@ -26,4 +26,4 @@ services:
     working_dir: /app
     ports:
       - "${DOCS_PORT:-3001}:3000"
-    command: sh -c "npm install && npx docusaurus start --host 0.0.0.0"
+    command: sh -c "npm ci && npx docusaurus start --host 0.0.0.0"
