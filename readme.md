@@ -219,7 +219,7 @@ and publish the build files when creating new versions. It may take a few minute
 
 When adding new components, please keep in mind the following guidelines:
 
-- Always define every variable in either the `@props` directive or the `@aware` directive. This way you can quickly see which variables a component expects, and you don't need to right a lot of `ìf` statements checking if a variable is set or exists.
+- Always define every variable in either the `@props` directive or the `@aware` directive. This way you can quickly see which variables a component expects, and you don't need to write a lot of `ìf` statements checking if a variable is set or exists.
 - You can use some PHP in an anonymous component, but when it starts getting complex, please create an actual class-based component so it is easier to test.
 - The goal of a component is always to write as little boilerplate code as possible while still allowing for maximum customisation. This can be a bit contradictory, but it is important to keep in mind that the goal is to make it as easy as possible to use the components in any project.
 
@@ -227,7 +227,8 @@ When adding new components, please keep in mind the following guidelines:
 
 When starting the docker container, the documentation site will automatically be started as well and will be available
 on http://localhost:3001/eloquent-ui. The documentation is built using [Docusaurus](https://docusaurus.io/). When
-adding new features or making changes, please also update the documentation.
+adding new features or making changes, please also update the documentation. Do not use separate pull requests to 
+update the documentation and the code.
 
 ## Running tests
 
@@ -240,7 +241,9 @@ docker-compose exec php composer test
 ### Test coverage
 
 Unfortunately, PHP Unit cannot create test coverage for blade views, and since most of the components in Eloquent UI
-are anonymous components that only consist of a blade view, test coverage is not possible.
+are anonymous components that only consist of a blade view, test coverage is not possible for most of the components.
+However, you can still generate test coverage for the rest of the code base, and we expect test coverage to be at 
+100% at all times.
 
 ## Code quality tools
 
@@ -270,3 +273,25 @@ the pull request. When fixing a bug, please include a test that reproduces the b
 manually.
 
 Before creating a pull request, please run the tests and code quality tools locally.
+
+## MIT License
+
+Copyright (c) 2025 BrickNPC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
