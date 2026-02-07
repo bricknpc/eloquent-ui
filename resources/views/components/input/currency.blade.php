@@ -43,14 +43,14 @@
 
 @if($label)
     <x-eloquent-ui::form.row
-            for="{{ $name }}"
-            id="{{ $name }}-label"
-            :required="$required"
-            :label="$label"
-            :label-position="$labelPosition"
-            :required-icon="$requiredIcon"
-            :required-style="$requiredStyle"
-            :label-width="$labelWidth"
+        for="{{ $name }}"
+        id="{{ $name }}-label"
+        :required="$required"
+        :label="$label"
+        :label-position="$labelPosition"
+        :required-icon="$requiredIcon"
+        :required-style="$requiredStyle"
+        :label-width="$labelWidth"
     >
 @endif
 <div
@@ -66,42 +66,38 @@
         @if($min !== null) data-{{ ns() }}-min="{{ $min }}" @endif
         @if($max !== null) data-{{ ns() }}-max="{{ $max }}" @endif
 >
-    @if(count($currencies) > 0)
-        <div
-            class="dropdown border-end-0"
-            data-{{ ns() }}-currency-select="true"
-            data-{{ ns() }}-currency-symbol="{{ config('eloquent-ui.input.currency.generic-symbol', '¤') }}"
-        >
-            <button
-                class="input-group-text btn btn-{{ $buttonStyle }} dropdown-toggle border-end-0 border-light"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                aria-label="{{ __('Select currency') }}"
-                @if($tabindex !== null) tabindex="{{ $tabindex }}" @endif
-            >
-                {{ $modelCurrencyValue ?? config('eloquent-ui.input.currency.generic-symbol', '¤') }}
-            </button>
-            <ul class="dropdown-menu">
-                @foreach($currencies as $key => $nameOrSymbol)
-                    <li>
-                        <button
-                            type="button"
-                            class="dropdown-item"
-                            data-{{ ns() }}-value="{{ $key }}"
-                            @if($key === $modelCurrencyValue) aria-current="true" @endif
-                        >{{ $nameOrSymbol }}</button>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    @elseif($modelCurrencyValue !== null)
-        <span
-            class="input-group-text bg-{{ $addonStyle }}"
-            id="{{ $name }}-addon"
-            @if($tabindex !== null) tabindex="{{ $tabindex }}" @endif
->{{ $modelCurrencyValue }}</span>
-    @endif
+@if(count($currencies) > 0)
+    <button
+        class="btn btn-{{ $buttonStyle }} dropdown-toggle border-end-1 border-light"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        aria-label="{{ __('Select currency') }}"
+        @if($tabindex !== null) tabindex="{{ $tabindex }}" @endif
+        data-{{ ns() }}-currency-select="true"
+        data-{{ ns() }}-currency-symbol="{{ config('eloquent-ui.input.currency.generic-symbol', '¤') }}"
+    >
+        {{ $currencyValue ?? config('eloquent-ui.input.currency.generic-symbol', '¤') }}
+    </button>
+    <ul class="dropdown-menu">
+        @foreach($currencies as $key => $nameOrSymbol)
+            <li>
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    data-{{ ns() }}-value="{{ $key }}"
+                    @if($key === $currencyValue) aria-current="true" @endif
+                >{{ $nameOrSymbol }}</button>
+            </li>
+        @endforeach
+    </ul>
+@elseif($currencyValue !== null)
+    <span
+        class="input-group-text bg-{{ $addonStyle }}"
+        id="{{ $name }}-addon"
+        @if($tabindex !== null) tabindex="{{ $tabindex }}" @endif
+    >{{ $currencyValue }}</span>
+@endif
     <input
         type="number"
         step="1"
