@@ -1,10 +1,23 @@
 # Eloquent UI
 
-Eloquent UI is a PHP-first UI framework for Laravel applications. It provides high-level UI constructs such as 
-confirmation modals, currency inputs, and interactive components without requiring developers to write Blade, 
-JavaScript, or CSS.
+Eloquent UI is a comprehensive, PHP-first UI framework for Laravel applications that bridges the gap between backend 
+and frontend. Unlike traditional component libraries that only provide Blade templates, Eloquent UI delivers a complete 
+solution with high-level UI components, custom casts, validation rules, database schema helpers, and request handling — 
+everything you need to build rich, interactive frontends without writing repetitive boilerplate.
 
-It also helps you to stop having to write boilerplate like this:
+## Full-Stack Components
+
+Eloquent UI provides complete implementations for complex UI patterns like currency inputs, confirmation modals, and 
+form components. Each component includes:
+
+- **Frontend**: Beautiful, accessible Blade components with JavaScript interactions based on Bootstrap 5
+- **Backend**: Custom casts (e.g., `CurrencyCast`), validation rules, and request helpers
+- **Database**: Schema macros for creating the proper database structure (e.g., `$table->currency('amount')`)
+- **Integration**: Seamless model binding and form handling
+
+## Stop Writing Boilerplate
+
+Eloquent UI eliminates the need to write repetitive HTML, Blade directives, and accessibility markup. Instead of this:
 
 ```html
 <div class="row mb-3">
@@ -40,7 +53,7 @@ It also helps you to stop having to write boilerplate like this:
 </div>
 ```
 
-And replace it with this:
+You write this:
 
 ```html
 <x-eloquent-ui::form.email name="email" label="Email": hint="Please enter your email address." placeholder="example@email.com" required="true">
@@ -50,8 +63,49 @@ And replace it with this:
 </x-eloquent-ui::form.email>
 ```
 
-This is a companion package to the [Eloquent Tables](https://github.com/bricknpc/eloquent-tables) package, which is 
-why there are no table components included in Eloquent UI.
+## Complete Backend Integration
+
+Eloquent UI isn't just about prettier templates. For example, the currency component provides:
+
+**In your migration:**
+```php
+$table->currency('amount')->nullable()->index(double: true);
+// Creates: amount (bigInteger), amount_currency (string), and composite index
+```
+
+**In your model:**
+```php
+protected function casts(): array
+{
+    return [
+        'amount' => CurrencyCast::class,
+    ];
+}
+```
+
+**In your Blade view:**
+```html
+<x-eloquent-ui::form action="#" :model="$order">
+    <x-eloquent-ui::currency name="amount" label="Amount" />
+</x-eloquent-ui::form>
+```
+
+The component automatically handles:
+- Model binding with the `Currency` value object
+- Proper storage of cents as integers and currency codes
+- Validation of min/max constraints
+- Paste support with automatic decimal separator detection
+- Currency dropdown with accessibility announcements
+- Overflow/underflow between whole and cents fields
+
+## Companion Package
+
+This is a companion package to [Eloquent Tables](https://github.com/bricknpc/eloquent-tables), which provides powerful 
+table components for Laravel. Together, they form a complete solution for building data-driven applications. Eloquent UI 
+focuses on forms, input elements and frontend components, while Eloquent Tables handles data display and table 
+interactions.
+
+## Framework Support
 
 Eloquent UI is built on top of [Bootstrap 5](https://getbootstrap.com). Although there are plans to support other 
 UI frameworks in the future, Bootstrap is currently the only supported framework.
