@@ -43,8 +43,8 @@
 
 @if($label)
     <x-eloquent-ui::form.row
-        for="{{ $name }}"
-        id="{{ $name }}-label"
+        for="{{ $name }}-whole"
+        id="{{ $labelId ?? $name . '-label' }}"
         :required="$required"
         :label="$label"
         :label-position="$labelPosition"
@@ -56,9 +56,7 @@
 <div
         {{ $attributes->merge(['class' => 'input-group has-validation']) }}
         role="group"
-        @if($labelId)
-            aria-labelledby="{{ $labelId }}"
-        @endif
+        aria-labelledby="{{ $labelId ?? $name . '-label' }}"
         data-{{ ns() }}-input="currency"
         data-{{ ns() }}-name="{{ $name }}"
         data-{{ ns() }}-focus-switch="{{ $focusSwitch }}"
