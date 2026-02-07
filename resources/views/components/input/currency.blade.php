@@ -67,6 +67,7 @@
 @if(count($currencies) > 0)
     <button
         class="btn btn-{{ $buttonStyle }} dropdown-toggle border-end-1 border-light"
+        id="{{ $name }}-currency-select"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
@@ -77,7 +78,7 @@
     >
         {{ $currencyValue ?? config('eloquent-ui.input.currency.generic-symbol', '¤') }}
     </button>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="{{ $name }}-currency-select-dropdown">
         @foreach($currencies as $key => $nameOrSymbol)
             <li>
                 <button
@@ -111,7 +112,7 @@
         class="form-control text-end @error($name) is-invalid @enderror"
         value="{{ old($name . '-whole', $wholeValue) }}"
     />
-    <span class="input-group-text bg-transparent border-0 p-1" aria-hidden="true">{{ config('eloquent-ui.decimal-separator', ',') }}</span> {{-- todo: Let locale decide this in the future, not the config --}}
+    <span class="input-group-text bg-{{ $addonStyle }} p-1" aria-hidden="true" style="border-radius: 0;">{{ config('eloquent-ui.decimal-separator', ',') }}</span> {{-- todo: Let locale decide this in the future, not the config --}}
     <input
         type="number"
         step="1"
@@ -141,6 +142,7 @@
     aria-live="polite"
     aria-atomic="true"
     class="visually-hidden"
+    id="{{ $name }}-currency-announcement"
     data-{{ ns() }}-currency-announcement="true"
     data-{{ ns() }}-currency-announcement-message="{{ __('Currency of :attribute has been changed to :key (:value)') }}"
 ></div>
