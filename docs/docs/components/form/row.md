@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 title: Row
 description: The row component provides a flexible way to layout your form.
 ---

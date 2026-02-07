@@ -132,6 +132,87 @@ Define the relationship between the current document and the linked resource:
 </x-eloquent-ui::form>
 ```
 
+## Eloquent models
+
+Forms can automatically set the values of the form fields based on the attributes of an Eloquent model. Pass the
+model to the `model` attribute and the inputs inside the form will be automatically filled with the model's attributes.
+
+```html
+<x-eloquent-ui::form action="/products" method="post" :model="$product">
+    <!-- Fields -->
+</x-eloquent-ui::form>
+```
+
+Individual inputs will look for a matching attribute on the model and will use the value of that attribute as the
+default value for the input. You can overwrite this behaviour by passing a custom closure to the `valueUsing` attribute
+on the input or by using the `value` attribute directly, which takes precedence over the model's attribute.
+
+```html
+<!-- Using a closure -->
+<x-eloquent-ui::form action="/products" method="post" :model="$product">
+    <x-eloquent-ui::input name="name" label="Product Name" :valueUsing="fn(Product $product, array $componentAttributes) => $product->display_name" />
+</x-eloquent-ui::form>
+
+<!-- Using the value attribute -->
+<x-eloquent-ui::form action="/products" method="post" :model="$product">
+    <x-eloquent-ui::input name="name" label="Product Name" value="Custom value" />
+</x-eloquent-ui::form>
+```
+
+## Label configuration
+
+All input components support a `label` attribute, which when provided adds a label to the input. The label can be
+customised with a number of different options. You can set these options on each input individually or on the form
+component itself to apply them to all inputs inside the form. If nothing is set on the form or the input component,
+the values from the config will be used.
+
+### Label position
+
+The label position determines where the label is rendered relative to the input. It should be one of the
+`BrickNPC\EloquentUI\Enums\LabelPosition` enum values.
+
+```html
+<x-eloquent-ui::form action="/products" method="post" :labelPosition="BrickNPC\EloquentUI\Enums\LabelPosition::Top">
+    <!-- Fields -->
+</x-eloquent-ui::form>
+```
+
+### Label width
+
+When adding a label to an input, Eloquent UI uses Bootstrap's grid system to determine the width of the label. You can
+set the width of the label using the `label-width` attribute on the form or the input component. The value should be the
+number of columns the label should span.
+
+```html
+<x-eloquent-ui::form action="/products" method="post" label-width="2">
+    <!-- Fields -->
+</x-eloquent-ui::form>
+```
+
+### Row class
+
+When adding a label input, Eloquent UI wraps the label and the input in a `.row` element. You can add custom classes to
+this row using the `row-class` attribute on the form or the input component.
+
+```html
+<x-eloquent-ui::form action="/products" method="post" row-class="mb-1 border-bottom border-secondary">
+    <!-- Fields -->
+</x-eloquent-ui::form>
+```
+
+### Required indicator
+
+When marking an input as required and providing a label at the same time, the label is rendered with both visible and
+accessible indicators for required fields. You can set the icon used for the required indicator using the
+`required-icon` attribute on the form or the input component. You can also set the style of the required indicator
+using the `required-style` attribute.
+
+```html
+<x-eloquent-ui::form action="/products" method="post" required-icon="!" required-style="warning">
+    <!-- Fields -->
+</x-eloquent-ui::form>
+```
+
 ## Features
 
 The Form component includes several built-in features for security and Laravel integration.

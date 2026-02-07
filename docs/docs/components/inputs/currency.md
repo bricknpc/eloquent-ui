@@ -20,24 +20,29 @@ enter a currency value.
 
 ### Labels
 
-Like all other input components, the Currency component has no label by default. If you want to add a label, you can 
-either add your own label element or use the [Row](../form/row) component.
+You can set the label of the currency component by using the `label` attribute. This will internally wrap the input 
+component in a [Row](../form/row) component and open up all customisation options for the row.
+
+```html
+<x-eloquent-ui::input.currency name="amount" label="Amount:" />
+```
+
+If you want to use a custom label, you can set the `label-id` attribute to the ID of the custom label. This will
+automatically add the necessary `aria-labelledby` attribute to the input field.
+
+```html
+<label id="amount-label" for="amount-whole">Amount:</label>
+<x-eloquent-ui::input.currency name="amount" label-id="amount-label" />
+```
+
+### Custom Row
 
 Because the Currency component renders three separate input fields, you can't use the `for` attribute in the normal 
-way. The first of the input elements rendered is the whole number input field, so you'll have to add `-whole` to the 
-`for` attribute value.
+way if you want to use a custom [Row](../form/row) component. The first of the input elements rendered is the whole 
+number input field, so you'll have to add `-whole` to the `for` attribute value.
 
 You should also provide an `id` attribute to the label element, so you can tell the Currency component which label 
 describes it.
-
-```html
-<label for="price-whole" id="price-label">Price</label>
-<x-eloquent-ui::input.currency name="price" label-id="price-label" />
-```
-
-You should do the same when using the Row component. If you don't set an `id` attribute on the Row component, the 
-component will use the `for` value as the ID suffixed by `-label`. So in the example below, it would be 
-`"price-whole-label"`.
 
 ```html
 <x-eloquent-ui::form.row for="price-whole" id="price-label" label="Price">
@@ -88,7 +93,7 @@ The currency array must be a `'key' => 'value'` array, where the key is the curr
 
 $currencies = [
     'EUR' => 'Euro',
-    'USD' => 'US Dollar',
+    'JPY' => 'Yen',
     // Other currencies...
 ];
 
@@ -182,11 +187,11 @@ the value is a valid currency amount.
 For more complex validation logic, you will have to implement your own validation logic. If you do so, please consider 
 opening a pull request to add it to the package.
 
-### Getting the value from the request
+### Form Request
 
 To help you get the currency value from the request, the Currency input component comes with a `HasCurrencyInput` trait. 
 This trait adds a `currency` method to your request class that returns the currency value as a 
-`BrickNPC\EloquentUI\ValueObjects\CurrencyInput` object.
+`BrickNPC\EloquentUI\ValueObjects\Currency` object.
 
 ```php
 <?php
@@ -210,7 +215,7 @@ class StoreOrderRequest extends FormRequest
 }
 ```
 
-The `CurrencyInput` has the following public properties that can be accessed:
+The `Currency` has the following public properties that can be accessed:
 
 | Property         | Type           | Description                                        |
 |------------------|----------------|----------------------------------------------------|
@@ -219,6 +224,96 @@ The `CurrencyInput` has the following public properties that can be accessed:
 | `$amount`        | `float`        | The total amount as a float.                       |
 | `$amountInCents` | `int`          | The total amount in cents as an integer.           |
 | `currency`       | `string\|null` | The currency selected.                             |
+
+### Model casting
+
+To help you use the currency value in your model, the currency component provides a custom `CurrencyCast` class that 
+can be used to cast the currency value to a `BrickNPC\EloquentUI\ValueObjects\Currency` object.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use BrickNPC\EloquentUI\Http\Casts\CurrencyCast;
+
+class Product extends Model
+{
+    protected $casts = [
+        'price' => CurrencyCast::class,
+    ];
+}
+```
+
+Using the model cast will set the value of the currency attribute to a `BrickNPC\EloquentUI\ValueObjects\Currency` 
+object when the model is retrieved from the database.
+
+### Database migration
+
+To help you create database migrations for currency columns, the currency component adds several macros to the 
+`Schema` facade.
+
+#### Currency
+
+```php
+\Illuminate\Support\Facades\Schema::create('products', function (Blueprint $table) {
+    $table->currency('price');
+});
+```
+
+The currency column requires a name for the column. When using the `currency` macro, the migration will actually create 
+two columns in the database: a bigint column for the amount in cents, and a varchar column for the currency code. The 
+`CurrencyCast` on the model will automatically make sure the correct amounts are retrieved from and stored in the 
+database.
+
+##### Nullable
+
+The currency column can be nullable by using the `nullable()` method. This will make the value in the amount column 
+nullable. The currency code column will always be nullable.
+
+##### Indexing
+
+You can add an index to the currency column by using the `index()` method. By default this will create a single index 
+on the amount column. If you want to combine the index with the currency code column, you can set `double` to `true` on 
+the `index()` method.
+
+```php
+\Illuminate\Support\Facades\Schema::create('products', function (Blueprint $table) {
+    $table->currency('price')->index(); // single index on the bigint column named price
+    $table->currency('price')->index(double: true); // composite index on the bigint column named price and varchar column named price_currency
+});
+```
+
+#### Drop currency
+
+If you add a currency column in the `up` method of the migration, you can use the `dropCurrency` macro to drop the 
+currency column in the `down` method.
+
+```php
+\Illuminate\Support\Facades\Schema::create('products', function (Blueprint $table) {
+    $table->dropCurrency('price');
+});
+```
+
+#### Drop currency index
+
+If you've added an index to the currency column, you can use the `dropCurrencyIndex` macro to drop the index in the 
+`down` method.
+
+:::warning[Always drop indexes]
+If you've added an index to a currency column, always drop it in the `down` method of the migration and make sure the 
+`dropCurrencyIndex` macro is called before the `dropCurrency` macro.
+:::
+
+```php
+\Illuminate\Support\Facades\Schema::create('products', function (Blueprint $table) {
+    $table->dropCurrencyIndex('price');
+    $table->dropCurrency('price');
+});
+```
 
 ## Advanced usage
 

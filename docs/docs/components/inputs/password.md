@@ -26,5 +26,5 @@ You can also change what icon is used for the toggle by setting the `switch-icon
 set in the config.
 
 ```html
-<x-eloquent-ui::input.password name="my-name" type-icon="◉" />
+<x-eloquent-ui::input.password name="my-name" switch-icon="◉" />
 ```

@@ -34,6 +34,23 @@ attribute. The component supports all HTML input types.
 <x-eloquent-ui::input.text name="date" type="datetime-local" />
 ```
 
+### Label
+
+You can set the label of the input field by using the `label` attribute. This will internally wrap the input component
+in a [Row](../form/row) component and open up all customisation options for the row.
+
+```html
+<x-eloquent-ui::input.text name="username" label="Username:" />
+```
+
+If you want to use a custom label, you can set the `label-id` attribute to the ID of the custom label. This will
+automatically add the necessary `aria-labelledby` attribute to the input field.
+
+```html
+<label id="username-label" for="username">Username:</label>
+<x-eloquent-ui::input.text name="username" label-id="username-label" />
+```
+
 ### Required inputs
 
 You can mark an input as required by setting the `required` attribute. This will automatically add the necessary `aria-` 
@@ -54,18 +71,6 @@ automatically add the necessary `aria-` attributes to the input field.
 <x-eloquent-ui::input.text name="username" disabled="disabled" />
 ```
 
-### Label
-
-The text input component has no label of its own. You can add a label of your own or wrap the input in an Eloquent UI 
-Row component. When the label is in a unique spot or has no `for` attribute pointing to the input, you can add the 
-ID of the label via the `label-id=""` attribute. This will set the `aria-labelledby` attribute on the input field.
-
-```html
-<label id="username-label">Username</label>
-
-<x-eloquent-ui::input.text name="username" label-id="username-label" />
-```
-
 ### Hints
 
 Hints are small texts that are displayed below the input field. They can be used to provide additional information or 
@@ -77,8 +82,8 @@ to display validation errors. You can add hints by using the `hint` attribute.
 
 ### Other attributes
 
-The input component supports all standard HTML attributes, like `placeholder`, `min`, `max`, `step`, `title`, `pattern`, 
-etc. You can add any of these attributes to the component and they will be rendered on the input element.
+The text component supports all standard HTML attributes, like `placeholder`, `min`, `max`, `step`, `title`, `pattern`, 
+etc. You can add any of these attributes to the component, and they will be rendered on the input element.
 
 ```html
 <x-eloquent-ui::input.text name="username" title="Your username" pattern="[a-zA-Z0-9]+" placeholder="Choose a username." />
