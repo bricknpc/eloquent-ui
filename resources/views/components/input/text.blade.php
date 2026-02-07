@@ -1,5 +1,6 @@
 @php
     use Illuminate\Database\Eloquent\Model;
+    use BrickNPC\EloquentUI\Enums\LabelPosition;
 
     /** @var Model $model */
 @endphp
@@ -30,6 +31,10 @@
 
 @php
     $modelValue = is_callable($valueUsing) ? call_user_func($valueUsing, $model, $attributes) : $model?->$name;
+
+    if ($labelPosition !== null && !$labelPosition instanceof LabelPosition) {
+        $labelPosition = LabelPosition::tryFrom($labelPosition);
+    }
 @endphp
 
 @if($label !== null)

@@ -15,7 +15,10 @@
         @if($labelId) aria-labelledby="{{ $labelId }}" @endif
         @error($name) aria-invalid="true" @enderror
         aria-describedby="@if($prefix) {{ $prefix->attributes->get('id') }} @endif @if($suffix) {{ $suffix->attributes->get('id') }} @endif @if($hint){{ $name }}-hint @endif @error($name){{ $name }}-feedback @enderror"
-        {{ $attributes->class(['form-control', 'is-invalid' => isset($errors) && $errors->has($name)]) }}
+        {{ $attributes
+            ->class(['form-control', 'is-invalid' => isset($errors) && $errors->has($name)])
+            ->except(['labelPosition', 'label-position', 'requiredIcon', 'required-icon', 'requiredStyle', 'required-style', 'labelWidth', 'label-width', 'rowClass', 'row-class', 'model'])
+        }}
         value="{{ old($name, $value ?? $modelValue) }}"
     />
     @if($suffix)
