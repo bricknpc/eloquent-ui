@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BrickNPC\EloquentUI\ValueObjects;
 
-final readonly class CurrencyInput
+final readonly class Currency
 {
     public function __construct(
         public int $whole,

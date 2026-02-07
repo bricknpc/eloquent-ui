@@ -1,15 +1,22 @@
+@php
+    use Illuminate\Database\Eloquent\Model;
+
+    /** @var Model $model */
+@endphp
+
 @props([
     'name',
-    'label'    => null,
-    'value'    => null,
-    'type'     => 'text',
-    'labelId'  => null,
-    'prefix'   => null,
-    'suffix'   => null,
-    'required' => false,
-    'disabled' => false,
-    'readonly' => false,
-    'hint'     => null,
+    'label'      => null,
+    'value'      => null,
+    'type'       => 'text',
+    'labelId'    => null,
+    'prefix'     => null,
+    'suffix'     => null,
+    'required'   => false,
+    'disabled'   => false,
+    'readonly'   => false,
+    'hint'       => null,
+    'valueUsing' => null,
 ])
 
 @aware([
@@ -18,7 +25,12 @@
     'requiredStyle' => config('eloquent-ui.input.required-style', 'danger'),
     'labelWidth'    => config('eloquent-ui.input.label-width', 3),
     'rowClass'      => config('eloquent-ui.input.row-class', 'mb-3'),
+    'model'         => null,
 ])
+
+@php
+    $modelValue = is_callable($valueUsing) ? call_user_func($valueUsing, $model, $attributes) : $model?->$name;
+@endphp
 
 @if($label)
     <x-eloquent-ui::form.row
@@ -50,7 +62,7 @@
         @error($name) aria-invalid="true" @enderror
         aria-describedby="@if($prefix) {{ $prefix->attributes->get('id') }} @endif @if($suffix) {{ $suffix->attributes->get('id') }} @endif @if($hint){{ $name }}-hint @endif @error($name){{ $name }}-feedback @enderror"
         {{ $attributes->class(['form-control', 'is-invalid' => isset($errors) && $errors->has($name)]) }}
-        value="{{ old($name, $value) }}"
+        value="{{ old($name, $value ?? $modelValue) }}"
     />
     @if($suffix)
         {!! $suffix !!}

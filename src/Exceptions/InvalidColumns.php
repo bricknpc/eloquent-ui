@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BrickNPC\EloquentUI\Exceptions;
 
-class InvalidColumns extends EloquentUIException
+class InvalidColumns extends \Exception
 {
     public static function forLabel(int $labelWidth): self
     {

@@ -1,11 +1,18 @@
+@php
+use Illuminate\Database\Eloquent\Model;
+
+/** @var Model $model */
+@endphp
+
 @props([
     'action',
-    'method'   => 'post',
-    'files'    => false,
-    'name'     => null,
-    'target'   => null,
-    'rel'      => null,
-    'forceCsrf'=> false,
+    'method'    => 'post',
+    'files'     => false,
+    'name'      => null,
+    'target'    => null,
+    'rel'       => null,
+    'forceCsrf' => false,
+    'model'     => null,
 ])
 
 @aware([

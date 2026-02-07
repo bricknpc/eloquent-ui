@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace BrickNPC\EloquentUI\Http\Traits;
 
 use Illuminate\Foundation\Http\FormRequest;
-use BrickNPC\EloquentUI\ValueObjects\CurrencyInput;
+use BrickNPC\EloquentUI\ValueObjects\Currency;
 
 /**
  * @mixin FormRequest
  */
 trait HasCurrencyInput // @phpstan-ignore trait.unused
 {
-    public function currency(string $name, mixed $default = null): ?CurrencyInput
+    public function currency(string $name, mixed $default = null): ?Currency
     {
         $wholeName    = $name . '-whole';
         $centsName    = $name . '-cents';
@@ -32,7 +32,7 @@ trait HasCurrencyInput // @phpstan-ignore trait.unused
             return $default;
         }
 
-        return new CurrencyInput(
+        return new Currency(
             whole: $wholeIntValue,
             cents: $centsIntValue,
             amount: $amount,
