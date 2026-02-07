@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace BrickNPC\EloquentUI\Enums;
 
+use BrickNPC\EloquentUI\Exceptions\InvalidColumns;
+
 enum LabelPosition: string
 {
     case Top    = 'top';
@@ -11,23 +13,37 @@ enum LabelPosition: string
     case Left   = 'left';
     case Right  = 'right';
 
-    public function getLabelClasses(): string
+    /**
+     * @throws InvalidColumns
+     */
+    public function getLabelClasses(int $labelWidth = 3): string
     {
+        if ($labelWidth < 1 || $labelWidth > 12) { // @todo The default is 12 columns, but you can change this, so move this to config
+            throw InvalidColumns::forLabel($labelWidth);
+        }
+
         return match ($this) {
-            self::Top    => 'col-12 mb-2',
-            self::Bottom => 'col-12 mt-2',
-            self::Left   => 'col-sm-3',
-            self::Right  => 'col-sm-3 order-sm-last',
+            self::Top    => 'col-12',
+            self::Bottom => 'col-12 order-last',
+            self::Left   => 'col-sm-' . $labelWidth,
+            self::Right  => 'col-sm-' . $labelWidth . ' order-sm-last',
         };
     }
 
-    public function getInputClasses(): string
+    /**
+     * @throws InvalidColumns
+     */
+    public function getInputClasses(int $labelWidth = 3): string
     {
+        if ($labelWidth < 1 || $labelWidth > 12) { // @todo The default is 12 columns, but you can change this, so move this to config
+            throw InvalidColumns::forLabel($labelWidth);
+        }
+
         return match ($this) {
-            self::Top    => 'col-12 mt-2',
-            self::Bottom => 'col-12 mb-2',
-            self::Left   => 'col-sm-9',
-            self::Right  => 'col-sm-9 order-sm-first',
+            self::Top    => 'col-12',
+            self::Bottom => 'col-12 order-first',
+            self::Left   => 'col-sm-' . (12 - $labelWidth),
+            self::Right  => 'col-sm-' . (12 - $labelWidth) . ' order-sm-first',
         };
     }
 }

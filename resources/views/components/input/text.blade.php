@@ -1,7 +1,6 @@
-@php
-@endphp
 @props([
     'name',
+    'label'    => null,
     'value'    => null,
     'type'     => 'text',
     'labelId'  => null,
@@ -12,6 +11,27 @@
     'readonly' => false,
     'hint'     => null,
 ])
+
+@aware([
+    'labelPosition' => null,
+    'requiredIcon'  => config('eloquent-ui.input.required-icon', '*'),
+    'requiredStyle' => config('eloquent-ui.input.required-style', 'danger'),
+    'labelWidth'    => config('eloquent-ui.input.label-width', 3),
+    'rowClass'      => config('eloquent-ui.input.row-class', 'mb-3'),
+])
+
+@if($label)
+    <x-eloquent-ui::form.row
+        for="{{ $name }}"
+        id="{{ $name }}-label"
+        :required="$required"
+        :label="$label"
+        :label-position="$labelPosition"
+        :required-icon="$requiredIcon"
+        :required-style="$requiredStyle"
+        :label-width="$labelWidth"
+    >
+@endif
 <div
     class="input-group has-validation"
     role="group"
@@ -42,3 +62,6 @@
 @error($name)
     <div id="{{ $name }}-feedback" class="invalid-feedback d-block" role="alert">{{ $message }}</div>
 @enderror
+@if($label)
+    </x-eloquent-ui::form.row>
+@endif

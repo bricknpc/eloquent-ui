@@ -55,6 +55,14 @@ return [
          * The icon displayed next to required fields. Can be any stringable value, like an HTML entity or an icon.
          */
         'required-icon' => '*',
+        /*
+         * The number of columns to use for the label when the label is to the left or the right of the input.
+         */
+        'label-width' => 3,
+        /*
+         * The default classes to apply to the row containing the label and input.
+         */
+        'row-class' => 'mb-3',
 
         /*
          * Currency input configuration
