@@ -20,7 +20,7 @@ Bootstrap framework.
 
 ### Theme
 
-You can change the theme of a button by adding a `theme` attribute. The value of this attribute should be one your 
+You can change the theme of a button by adding a `theme` attribute. The value of this attribute should be one of your 
 Bootstrap theme colours like `primary`, `secondary` or `danger`. By default, all buttons use the primary theme.
 Outline themes like `outline-primary`, `outline-danger`, etc, can also be used.
 
@@ -61,7 +61,7 @@ You can turn the button into a toggle button by adding the `toggle` attribute. T
 ### Offset
 
 When using buttons in combination with a form that has labels on the start of the row, you can add the `offset` 
-attribute to the button to offset if from it's container by the same number of columns as the label width.
+attribute to the button to offset it from its container by the same number of columns as the label width.
 
 ```html
 <x-eloquent-ui::button name="save" type="submit" offset="3">Save</x-eloquent-ui::button>

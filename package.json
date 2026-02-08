@@ -5,5 +5,9 @@
   },
   "devDependencies": {
     "vite": "^5.0"
+  },
+  "dependencies": {
+    "path": "^0.12.7",
+    "path-browserify": "^1.0.1"
   }
 }
