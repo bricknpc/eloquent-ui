@@ -2,6 +2,13 @@
 
 ![Logo](eloquent-ui-png-nobg-horizontal.png)
 
+![Static Badge](https://img.shields.io/badge/bricknpc-eloquent--ui-blue)
+![GitHub License](https://img.shields.io/github/license/bricknpc/eloquent-ui)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bricknpc/eloquent-ui/ci.yml)
+![Codecov](https://img.shields.io/codecov/c/github/bricknpc/eloquent-ui)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/bricknpc/eloquent-ui)
+![GitHub Release](https://img.shields.io/github/v/release/bricknpc/eloquent-ui)
+
 Eloquent UI is a comprehensive, PHP-first UI framework for Laravel applications that bridges the gap between backend 
 and frontend. Unlike traditional component libraries that only provide frontend components, Eloquent UI delivers a 
 complete full-stack solution with high-level UI components, custom casts, validation rules, database schema helpers, 
