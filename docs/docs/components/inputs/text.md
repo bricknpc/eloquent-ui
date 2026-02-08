@@ -63,7 +63,8 @@ attributes to the input field.
 ### Disabled and readonly inputs
 
 You can disable or make an input field readonly by setting the `disabled` or `readonly` attributes. This will 
-automatically add the necessary `aria-` attributes to the input field.
+automatically add the necessary `aria-` attributes to the input field and also the label if you use the `label` 
+attribute.
 
 ```html
 <x-eloquent-ui::input.text name="username" readonly />
@@ -73,8 +74,8 @@ automatically add the necessary `aria-` attributes to the input field.
 
 ### Hints
 
-Hints are small texts that are displayed below the input field. They can be used to provide additional information or 
-to display validation errors. You can add hints by using the `hint` attribute.
+Hints are small texts that are displayed below the input field. They can be used to provide additional information. You 
+can add hints by using the `hint` attribute.
 
 ```html
 <x-eloquent-ui::input.text name="username" hint="Please enter your username." />

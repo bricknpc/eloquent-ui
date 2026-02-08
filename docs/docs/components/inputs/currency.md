@@ -293,7 +293,7 @@ If you add a currency column in the `up` method of the migration, you can use th
 currency column in the `down` method.
 
 ```php
-\Illuminate\Support\Facades\Schema::create('products', function (Blueprint $table) {
+\Illuminate\Support\Facades\Schema::table('products', function (Blueprint $table) {
     $table->dropCurrency('price');
 });
 ```
@@ -309,7 +309,7 @@ If you've added an index to a currency column, always drop it in the `down` meth
 :::
 
 ```php
-\Illuminate\Support\Facades\Schema::create('products', function (Blueprint $table) {
+\Illuminate\Support\Facades\Schema::table('products', function (Blueprint $table) {
     $table->dropCurrencyIndex('price');
     $table->dropCurrency('price');
 });
