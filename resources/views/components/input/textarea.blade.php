@@ -15,6 +15,7 @@
     'readonly'   => false,
     'hint'       => null,
     'valueUsing' => null,
+    'resize'     => 'vertical'
 ])
 
 @aware([

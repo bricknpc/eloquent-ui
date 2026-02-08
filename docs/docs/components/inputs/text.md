@@ -4,7 +4,7 @@ title: Text
 description: The text input component.
 ---
 
-# Template
+# Text
 
 The text input component creates an HTML text input element.
 

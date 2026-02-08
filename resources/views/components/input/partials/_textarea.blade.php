@@ -1,4 +1,4 @@
-<textare
+<textarea
     name="{{ $name }}"
     id="{{ $name }}"
     @if($required) required aria-required="true" @endif
@@ -7,11 +7,12 @@
     @if($labelId) aria-labelledby="{{ $labelId }}" @endif
     @error($name) aria-invalid="true" @enderror
     aria-describedby="@if($hint){{ $name }}-hint @endif @error($name){{ $name }}-feedback @enderror"
+    style="resize: {{ $resize }}"
     {{ $attributes
         ->class(['form-control', 'is-invalid' => isset($errors) && $errors->has($name)])
-        ->except(['labelPosition', 'label-position', 'requiredIcon', 'required-icon', 'requiredStyle', 'required-style', 'labelWidth', 'label-width', 'rowClass', 'row-class', 'model'])
+        ->except(['labelPosition', 'label-position', 'requiredIcon', 'required-icon', 'requiredStyle', 'required-style', 'labelWidth', 'label-width', 'rowClass', 'row-class', 'model', 'resize'])
     }}
->{{ old($name, $value ?? $modelValue) }}</textare>
+>{{ old($name, $value ?? $modelValue) }}</textarea>
 @if($hint)
     <div id="{{ $name }}-hint" class="form-text">{{ $hint }}</div>
 @endif

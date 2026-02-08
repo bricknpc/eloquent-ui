@@ -65,4 +65,20 @@ class PasswordTest extends TestCase
         $view->assertSee('type="password"', false);
         $view->assertSee('data-' . ns() . '-password-switch-icon="+"', false);
     }
+
+    public function test_it_adds_a_second_password_input_when_confirm_is_set(): void
+    {
+        $view = $this->blade('<x-eloquent-ui::input.password name="name" confirm="true" />');
+
+        $view->assertSee('<input', false);
+        $view->assertSee('name="name"', false);
+        $view->assertSee('name="name_confirmation"', false);
+    }
+
+    public function test_it_does_not_allow_switching_when_confirm_is_set(): void
+    {
+        $view = $this->blade('<x-eloquent-ui::input.password name="name" confirm="true" />');
+
+        $view->assertSee('data-' . ns() . '-password-allow-switch="false"', false);
+    }
 }

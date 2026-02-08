@@ -1,5 +1,5 @@
 ---
-sidebar_position: 15
+sidebar_position: 5
 title: Currency
 description: A fully accessible currency input component with support for multiple currencies, validation, and locale-specific formatting.
 ---

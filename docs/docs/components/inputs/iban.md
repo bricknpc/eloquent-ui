@@ -1,5 +1,5 @@
 ---
-sidebar_position: 16
+sidebar_position: 6
 title: IBAN
 description: A fully accessible IBAN input component.
 ---

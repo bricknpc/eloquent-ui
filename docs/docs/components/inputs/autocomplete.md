@@ -1,5 +1,5 @@
 ---
-sidebar_position: 17
+sidebar_position: 8
 title: Autocomplete
 description: A fully accessible autocomplete input component with search and filter functionality.
 ---

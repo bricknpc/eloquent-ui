@@ -221,7 +221,7 @@ First, clone the project.
 
 ```bash
 git clone https://github.com/bricknpc/eloquent-ui.git
-cd eloquent-tables
+cd eloquent-ui
 ```
 
 Up the docker container and install the dependencies.

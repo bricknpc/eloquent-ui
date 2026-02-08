@@ -17,7 +17,7 @@
         aria-describedby="@if($prefix) {{ $prefix->attributes->get('id') }} @endif @if($suffix) {{ $suffix->attributes->get('id') }} @endif @if($hint){{ $name }}-hint @endif @error($name){{ $name }}-feedback @enderror"
         {{ $attributes
             ->class(['form-control', 'is-invalid' => isset($errors) && $errors->has($name)])
-            ->except(['labelPosition', 'label-position', 'requiredIcon', 'required-icon', 'requiredStyle', 'required-style', 'labelWidth', 'label-width', 'rowClass', 'row-class', 'model'])
+            ->except(['labelPosition', 'label-position', 'requiredIcon', 'required-icon', 'requiredStyle', 'required-style', 'labelWidth', 'label-width', 'rowClass', 'row-class', 'model', 'allowTypeSwitch', 'allow-type-switch', 'switchIcon', 'switch-icon', 'confirm'])
         }}
         value="{{ old($name, $value ?? $modelValue) }}"
     />
