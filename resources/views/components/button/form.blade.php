@@ -1,3 +1,7 @@
+@php
+    use function BrickNPC\EloquentUI\ns;
+@endphp
+
 @props([
     'name',
     'noWrap' => false,
@@ -9,6 +13,7 @@
     'reset' => false,
     'resetTheme' => 'danger',
     'resetLabel' => null,
+    'once' => false,
 ])
 @if($offset !== null)
     <div class="row">
@@ -19,16 +24,24 @@
     name="{{ $name }}"
     id="{{ $name }}"
     {{ $attributes->class(['btn', 'btn-' . $theme, 'text-nowrap' => $noWrap]) }}
+    @if($once)
+        data-{{ ns() }}-once="true"
+        data-{{ ns() }}-once-others="#{{ $name }}-submit-another"
+    @endif
 >{{ $slot }}</button>
 @if($another)
     <button
         type="submit"
-        name="add-another"
-        id="{{ $name }}-add-another"
+        name="submit-another"
+        id="{{ $name }}-submit-another"
         {{ $attributes->class(['btn', 'btn-' . $anotherTheme, 'text-nowrap' => $noWrap]) }}
-    >{{ $anotherLabel ?? $slot . __(' and add another') }}</button>
+        @if($once)
+            data-{{ ns() }}-once="true"
+            data-{{ ns() }}-once-others="#{{ $name }}-submit"
+        @endif
+    >{{ $anotherLabel ?? __(':slot and add another', ['slot' => $slot]) }}</button>
 @endif
-@if($another)
+@if($reset)
     <button
         type="reset"
         name="{{ $name }}-reset"

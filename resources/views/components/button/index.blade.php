@@ -1,3 +1,7 @@
+@php
+    use function BrickNPC\EloquentUI\ns;
+@endphp
+
 @props([
     'name',
     'type' => 'button',
@@ -8,6 +12,7 @@
     'toggle' => false,
     'pressed' => false,
     'offset' => null,
+    'once' => false,
 ])
 @if($offset !== null)
     <div class="row">
@@ -25,7 +30,10 @@
             aria-pressed="true"
         @endif
     @endif
-    {{ $attributes->class(['btn', 'btn-' . $theme, 'text-nowrap' => $noWrap]) }}
+    @if($once)
+        data-{{ ns() }}-once="true"
+    @endif
+    {{ $attributes->class(['btn', 'btn-' . $theme, 'text-nowrap' => $noWrap, 'active' => $toggle && $pressed]) }}
 >{{ $slot }}</button>
 @if($offset !== null)
         </div>
