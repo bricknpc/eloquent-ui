@@ -78,7 +78,7 @@ attributes to the component, and they will be rendered on the textarea element.
 
 ## Features
 
-### Combining text inputs with rows
+### Combining textarea's with rows
 
 Like all other input components, the textarea component can be combined with the row component to create a more complex
 input field.
