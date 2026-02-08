@@ -1,0 +1,1 @@
+<x-eloquent-ui::button type="reset" {{ $attributes->except(['type']) }}>{{ $slot }}</x-eloquent-ui::button>

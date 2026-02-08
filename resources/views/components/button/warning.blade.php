@@ -1,0 +1,1 @@
+<x-eloquent-ui::button theme="warning" {{ $attributes->except(['theme']) }}>{{ $slot }}</x-eloquent-ui::button>

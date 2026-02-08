@@ -8,5 +8,7 @@
   "required": "verplicht",
   "Select currency": "Kies valuta",
   "Cents": "Centen",
-  "Currency of :attribute has been changed to :key (:value)": "Valuta van :attribute is gewijzigd naar :key (:value)"
+  "Currency of :attribute has been changed to :key (:value)": "Valuta van :attribute is gewijzigd naar :key (:value)",
+  " and add another": " en voeg er nog een toe",
+  "Reset": "Reset"
 }

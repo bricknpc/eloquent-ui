@@ -1,0 +1,1 @@
+<x-eloquent-ui::button type="submit" theme="outline-quaternary" {{ $attributes->except(['theme']) }}>{{ $slot }}</x-eloquent-ui::button>

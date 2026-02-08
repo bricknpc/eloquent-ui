@@ -1,3 +1,1 @@
-<!--
-Helper for buttons with certain styles
--->
+<x-eloquent-ui::button theme="primary" {{ $attributes->except(['theme']) }}>{{ $slot }}</x-eloquent-ui::button>
