@@ -8,7 +8,7 @@
     'location' => ToastLocation::BottomRight,
 ])
 
-@if(count($_eloquent_ui__toasts) > 0)
+@if(isset($_eloquent_ui__toasts) && is_array($_eloquent_ui__toasts) && count($_eloquent_ui__toasts) > 0)
     <div {{ $attributes->merge(['class' => $location->getCssClass()]) }}>
         @foreach($_eloquent_ui__toasts as $toast)
             <x-eloquent-ui::toast.toast :toast="$toast" />

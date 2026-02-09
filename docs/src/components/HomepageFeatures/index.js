@@ -18,12 +18,14 @@ const FeatureList = [
     Svg: require('@site/static/img/undraw-web-browsing.svg').default,
     description: (
         <>
-            Outputs fully validated and accessible HTML5 code that follow best practices out of the box.
+            Outputs fully validated and accessible HTML5 code that follows best practices out of the box, including
+            proper ARIA attributes, label associations, and keyboard navigation, ensuring a consistent experience for
+            keyboard users and assistive technologies.
         </>
     ),
   },
   {
-    title: 'Full-stack components',
+    title: 'Full-stack Components',
     Svg: require('@site/static/img/undraw-server-cluster.svg').default,
     description: (
       <>
@@ -41,6 +43,26 @@ const FeatureList = [
         Eloquent UI is built on top of Laravel and Bootstrap&nbsp;5. The Blade components can be used in any Laravel
         project.
       </>
+    ),
+  },
+  {
+    title: 'Configurable by Default',
+    Svg: require('@site/static/img/undraw-settings.svg').default,
+    description: (
+        <>
+            Eloquent UI is designed to be configured, not rewritten. Fine-tune behaviour per component using attributes,
+            or define sensible defaults globally through configuration files.
+        </>
+    ),
+  },
+  {
+    title: 'Production Ready',
+    Svg: require('@site/static/img/undraw-quality.svg').default,
+    description: (
+        <>
+            Fully tested and thoroughly documented components you can trust in production, with predictable behaviour
+            and clear integration points.
+        </>
     ),
   },
 ];
