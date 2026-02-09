@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace BrickNPC\EloquentUI\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
+use BrickNPC\EloquentUI\Http\Composers\ToastComposer;
 use BrickNPC\EloquentUI\Database\Schema\CurrencyColumn;
 
 class EloquentUIServiceProvider extends ServiceProvider
@@ -32,6 +34,8 @@ class EloquentUIServiceProvider extends ServiceProvider
         ], 'eloquent-ui-translations');
 
         $this->registerBlueprintMacros();
+
+        View::composer('*', ToastComposer::class);
     }
 
     public function register(): void

@@ -10,5 +10,11 @@
   "Cents": "Centen",
   "Currency of :attribute has been changed to :key (:value)": "Valuta van :attribute is gewijzigd naar :key (:value)",
   ":slot and add another": ":slot en voeg er nog een toe",
-  "Reset": "Reset"
+  "Reset": "Reset",
+  "Success": "Succes",
+  "Warning": "Waarschuwing",
+  "Error": "Fout",
+  "Info": "Info",
+  "now": "nu",
+  "Close": "Sluiten"
 }

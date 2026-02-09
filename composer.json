@@ -21,7 +21,9 @@
     "ext-simplexml": "*",
     "illuminate/contracts": "^12.0",
     "illuminate/support": "^12.0",
-    "illuminate/translation": "^12.0"
+    "illuminate/translation": "^12.0",
+    "illuminate/view": "^12.0",
+    "illuminate/session": "^12.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^12.0",

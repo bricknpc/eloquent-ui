@@ -100,4 +100,26 @@ return [
             'switch-icon' => '👁',
         ],
     ],
+
+    /*
+     * Toasts configuration
+     * ==================================================
+     *
+     * Configuration options for the toast components.
+     */
+    'toasts' => [
+        /*
+         * Whether toasts should autohide.
+         */
+        'autohide' => true,
+        /*
+         * The delay in milliseconds before toasts autohide.
+         */
+        'autohide-delay' => 5000,
+        /*
+         * The theme to use for toast borders. Should be one of your Bootstrap theme colours, like primary, secondary or
+         * dark.
+         */
+        'border-theme'=> 'dark',
+    ],
 ];

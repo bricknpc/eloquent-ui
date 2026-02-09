@@ -4,10 +4,13 @@
 (function(window) {
     'use strict';
 
-    const namespace = window.EloquentUIConfig?.namespace || 'eloquent-ui';
+    const namespace = window.EloquentUIConfig?.namespace || 'eloquent-ui'; // todo get from meta tag
     const onceAttr = `data-${namespace}-once`;
     const onceOthersAttr = `data-${namespace}-once-others`;
 
+    /**
+     * @todo This does not work at all. Fixme
+     */
     class Once {
         constructor(element) {
             if (!(element instanceof HTMLElement)) {
