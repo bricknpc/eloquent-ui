@@ -317,7 +317,8 @@ class ToastComposerTest extends TestCase
                 $this->assertSame($toasts[2]->title, $passedToasts[2]->title);
 
                 return true;
-            }));
+            }))
+        ;
 
         $this->composer->compose($this->view);
     }

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace BrickNPC\EloquentUI;
 
+use Illuminate\Support\HtmlString;
+use Illuminate\Contracts\Support\Htmlable;
+
 /**
  * @param array<string, mixed> $replace
  */
@@ -21,4 +24,13 @@ function ns(): string
     $value = config('eloquent-ui.data-namespace', 'eloquent-ui');
 
     return $value;
+}
+
+function meta(): Htmlable
+{
+    $content = [
+        'ns' => str(ns())->camel(),
+    ];
+
+    return new HtmlString('<meta name="eloquent-ui" content="' . json_encode($content) . '" />');
 }

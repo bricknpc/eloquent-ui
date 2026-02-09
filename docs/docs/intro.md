@@ -48,7 +48,7 @@ project.
 composer require bricknpc/eloquent-ui
 ```
 
-```bladehtml
+```html
 {{-- Use powerful components immediately --}}
 <x-eloquent-ui::input.currency
     name="price"
