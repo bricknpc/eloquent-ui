@@ -5,31 +5,41 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/undraw-code-review.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Eloquent UI is designed to be easy to use and customize. No need to write big blobs of boilerplate code just
+        to render a textarea or a simple modal, just easy to use blade components.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Accessible by Design',
+    Svg: require('@site/static/img/undraw-web-browsing.svg').default,
+    description: (
+        <>
+            Outputs fully validated and accessible HTML5 code that follow best practices out of the box.
+        </>
+    ),
+  },
+  {
+    title: 'Full-stack components',
+    Svg: require('@site/static/img/undraw-server-cluster.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Eloquent UI comes with a full-stack library for your components. No need to write custom backend code for
+        your components, use the provided request helpers, validation rules, model casts, database integrations,
+        services and much more.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Powered by Laravel',
+    Svg: require('@site/static/img/undraw-laravel.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Eloquent UI is built on top of Laravel and Bootstrap&nbsp;5. The Blade components can be used in any Laravel
+        project.
       </>
     ),
   },

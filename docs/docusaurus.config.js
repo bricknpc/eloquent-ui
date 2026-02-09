@@ -11,8 +11,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'Eloquent UI',
-    tagline: 'Eloquent UI components for your Laravel Application',
-    favicon: 'img/logo_transparent_small.png',
+    tagline: 'Full-Stack UI component library for Laravel Applications',
+    favicon: 'img/eloquent-ui-logo-horizontal.png',
 
     // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
     future: {
@@ -90,7 +90,7 @@ const config = {
                 title: 'Eloquent UI',
                 logo: {
                     alt: 'Eloquent UI Logo',
-                    src: 'img/logo_transparent_small.png',
+                    src: 'img/eloquent-ui-logo-horizontal.png',
                 },
                 items: [
                     {
