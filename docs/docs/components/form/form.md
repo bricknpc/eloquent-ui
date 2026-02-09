@@ -7,7 +7,7 @@ description: A secure, accessible form wrapper component with built-in CSRF prot
 # Form
 
 The Form component provides a secure wrapper around HTML forms with built-in Laravel integration, including CSRF
-protection, HTTP method spoofing, and support for file uploads.
+protection, HTTP method spoofing, support for file uploads and Eloquent model binding.
 
 ## Usage
 
@@ -132,10 +132,11 @@ Define the relationship between the current document and the linked resource:
 </x-eloquent-ui::form>
 ```
 
-## Eloquent models
+## Eloquent model binding
 
 Forms can automatically set the values of the form fields based on the attributes of an Eloquent model. Pass the
-model to the `model` attribute and the inputs inside the form will be automatically filled with the model's attributes.
+Eloquent model to the `model` attribute and the inputs inside the form will be automatically filled with the model's 
+attributes.
 
 ```html
 <x-eloquent-ui::form action="/products" method="post" :model="$product">
@@ -143,14 +144,15 @@ model to the `model` attribute and the inputs inside the form will be automatica
 </x-eloquent-ui::form>
 ```
 
-Individual inputs will look for a matching attribute on the model and will use the value of that attribute as the
-default value for the input. You can overwrite this behaviour by passing a custom closure to the `valueUsing` attribute
-on the input or by using the `value` attribute directly, which takes precedence over the model's attribute.
+Individual inputs will look for a matching attribute on the model based on the name of the input and will use the value 
+of that attribute as the default value for the input. You can overwrite this behaviour by passing a custom closure to 
+the `value-using` attribute on the input or by using the `value` attribute directly, which takes precedence over the 
+model's attribute.
 
 ```html
 <!-- Using a closure -->
 <x-eloquent-ui::form action="/products" method="post" :model="$product">
-    <x-eloquent-ui::input name="name" label="Product Name" :valueUsing="fn(Product $product, array $componentAttributes) => $product->display_name" />
+    <x-eloquent-ui::input name="name" label="Product Name" :value-using="fn(Product $product, array $componentAttributes) => $product->display_name" />
 </x-eloquent-ui::form>
 
 <!-- Using the value attribute -->

@@ -42,13 +42,13 @@ options on the input component as well when using the `label` attribute. You can
 ## Eloquent models
 
 If you provide an Eloquent model to the Form component the input is part of, the input will 
-automatically try to get the value from the model. You can override this behaviour by providing a `valueUsing` closure 
+automatically try to get the value from the model. You can override this behaviour by providing a `value-using` closure 
 or by setting the `value` attribute.
 
 ```html
-<!-- Using the valueUsing closure -->
+<!-- Using the value-using closure -->
 <x-eloquent-ui::form :model="$model">
-    <x-eloquent-ui::input.currency name="total_price" valueUsing="fn(Model $model, array $attributes) => $model->price" />
+    <x-eloquent-ui::input.currency name="total_price" :value-using="fn(Model $model, array $attributes) => $model->price" />
 </x-eloquent-ui::form>
 
 <!-- Using the value attribute -->

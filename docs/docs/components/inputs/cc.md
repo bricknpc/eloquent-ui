@@ -1,5 +1,5 @@
 ---
-sidebar_position: 9
+sidebar_position: 10
 title: CC Number
 description: A fully accessible credit card number input component.
 ---

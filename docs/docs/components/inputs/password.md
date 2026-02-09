@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 title: Password
 description: The password input component.
 ---
@@ -56,5 +56,5 @@ You should treat the `confirm` attribute as experimental. It may change or be re
 ## Model values
 
 Since passwords are stored as hashes in the database, the password input will not automatically try to get the value 
-from the Eloquent model if it is set on the form. Therefore, it also does not support the `valueUsing` attribute or 
+from the Eloquent model if it is set on the form. Therefore, it also does not support the `value-using` attribute or 
 the `value` attribute.

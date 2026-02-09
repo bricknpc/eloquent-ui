@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 title: Currency
 description: A fully accessible currency input component with support for multiple currencies, validation, and locale-specific formatting.
 ---
@@ -310,7 +310,8 @@ If you've added an index to a currency column, always drop it in the `down` meth
 
 ```php
 \Illuminate\Support\Facades\Schema::table('products', function (Blueprint $table) {
-    $table->dropCurrencyIndex('price');
+    $table->dropCurrencyIndex('price'); // Drop the index on the bigint column named price
+    $table->dropCurrencyIndex(name: 'price', double: true); // Drop the composite index on the bigint column named price and varchar column named price_currency
     $table->dropCurrency('price');
 });
 ```
@@ -340,7 +341,8 @@ invalid.
 ### Data attributes
 
 Like with all other components, the Currency component supports custom data attributes. Adding a `data-` attribute to 
-the Currency component will add it to the topmost HTML element of the component, which is the `input-group` element.
+the Currency component will add it to the topmost HTML element of the component, which is the `input-group` element that 
+wraps the input fields into a single group.
 
 ```html
 <div {{ $attributes->merge(['class' => 'input-group has-validation']) }}>

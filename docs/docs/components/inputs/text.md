@@ -54,10 +54,32 @@ automatically add the necessary `aria-labelledby` attribute to the input field.
 ### Required inputs
 
 You can mark an input as required by setting the `required` attribute. This will automatically add the necessary `aria-` 
-attributes to the input field.
+attributes to the input field. If your input uses a label through the `label` attribute, the label will also be marked 
+as required. This also opens up the `required` customisation options.
 
 ```html
 <x-eloquent-ui::input.text name="username" required />
+```
+
+#### Required indicator
+
+If an input is required, you can change the indicator displayed next to the label. By default, an asterisk is displayed. 
+You can change this by setting the `required-icon` attribute. You can also change the default value for this indicator 
+in the config file to change it for all components.
+
+```html
+<x-eloquent-ui::input.text name="username" label="Username:" required required-icon="*" />
+```
+
+#### Required style
+
+You may also customise the style of the required indicator by adding the `required-style="danger"` attribute. The value
+of this attribute should be one of your theme colours, like `danger` or `primary`. By default, the required indicator
+is rendered as `danger`. You can also change the default value for this indicator in the config file to change it for
+all components globally.
+
+```html
+<x-eloquent-ui::input.text name="username" label="Username:" required required-style="warning" />
 ```
 
 ### Disabled and readonly inputs
