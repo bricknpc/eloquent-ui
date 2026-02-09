@@ -4,49 +4,67 @@ sidebar_position: 1
 
 # Intro
 
-**Build production-ready Laravel applications faster with accessible, feature-rich UI components.**
+**Build complete, accessible Laravel user interfaces with less code and fewer compromises.**
 
-Eloquent UI is a comprehensive PHP-first component library designed specifically for Laravel developers who want to ship 
-faster without sacrificing quality. Unlike other UI libraries, Eloquent UI delivers functional, accessible, and beautiful
-components with both stunning visuals and robust functionality built-in.
+Eloquent UI is a full-stack, PHP-first UI framework for Laravel. It goes beyond frontend components by integrating 
+deeply with the backend, so common concerns are handled once and handled correctly.
 
-## Why Eloquent UI?
+Instead of assembling forms, validation, accessibility, and error handling yourself, Eloquent UI provides 
+production-ready components that manage the entire flow for you.
 
-- **🚀 Ship Faster** - Stop writing repetitive boilerplate code. Drop in complete, production-ready components.
-- **♿ Accessibility First** - Every component is WCAG 2.1 compliant with proper ARIA attributes and screen reader support.
-- **🎨 Bootstrap 5 Powered** - Built on the world's most popular CSS framework for consistent, professional design.
-- **🔧 Laravel Native** - Seamless integration with Laravel's validation, forms, and request handling.
-- **📦 Feature Complete** - Get validation, error handling, old input support, and more out of the box.
-- **🎯 PHP-First Design** - Define your UI in PHP/Blade with full IDE autocomplete and type safety.
+## What Eloquent UI gives you
 
-## Built for Modern Laravel Development
+- ✅ **Full-stack components**<br />UI components backed by Laravel-native integrations such as validation rules, model casts, database schema macros, request helpers, and supporting services.
+- ✅ **Less boilerplate, more intent**<br />Components handle validation, error messages, old input, and accessibility automatically, so your code stays focused on application logic.
+- ✅ **Accessibility by default**<br />Proper ARIA attributes, correct label relationships, and visually hidden content for screen readers are built in, not optional.
+- ✅ **Designed for Laravel developers**<br />Built with Blade and PHP, styled with Bootstrap 5, and aligned with Laravel conventions. No custom syntax or heavy frontend abstractions.
+- ✅ **Configurable by design**<br />Customise behaviour per component via attributes, or define global defaults through configuration files.
+- ✅ **Production-ready quality**<br />Fully tested and thoroughly documented, with real-world examples you can rely on.
 
-Eloquent UI isn't just another component library - it's a complete solution for building professional Laravel 
-applications. Each component includes:
-
-- ✅ **Server-side validation integration** with Laravel's validation rules
-- ✅ **Accessibility compliance** meeting international standards (WCAG 2.1)
-- ✅ **Responsive design** that works on any device
-- ✅ **Error handling** with automatic display of validation messages
-- ✅ **Old input preservation** for a better user experience
-- ✅ **Customisable styling** through configuration
-- ✅ **Extensive documentation** with real-world examples
+Eloquent UI is for teams who want UI components that feel native to Laravel, reduce repetitive work, and treat 
+accessibility and backend integration as first-class concerns.
 
 ## Prerequisites
 
-Eloquent UI is built on top of **Bootstrap 5**. Before installation, ensure Bootstrap 5 is included in your Laravel 
+Eloquent UI is built on top of **Bootstrap 5**. Before installation, ensure Bootstrap 5 is installed in your Laravel 
 project.
 
 **Required:**
 - Laravel `^12.0`
-- Bootstrap 5.x
-- PHP `^8.4`
+- Bootstrap `^5.3`
+- PHP `^8.4|^8.5`
 
 ## Quick Start
+
+Install the package via Composer:
 
 ```bash
 composer require bricknpc/eloquent-ui
 ```
+
+After that, publish the assets and set up your layout.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My App</title>
+        <!-- Other head elements, your app CSS, etc -->
+        {{ BrickNPC\EloquentUI\meta() }}
+        @asset('vendor/eloquent-ui/css/eloquent-ui.css')
+    </head>
+    <body>
+        <!-- body contents -->
+        
+        <!-- Your app scripts -->
+        @asset('vendor/eloquent-ui/js/eloquent-ui.js')
+    </body>
+</html>
+```
+
+Now start using the components
 
 ```html
 {{-- Use powerful components immediately --}}
@@ -91,4 +109,4 @@ Validation messages automatically appear in the right place with proper accessib
 
 ## License
 
-Eloquent UI is open-source software licensed under the MIT licence.
+Eloquent UI is licensed under the MIT licence.
