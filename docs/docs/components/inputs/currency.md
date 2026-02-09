@@ -112,7 +112,59 @@ well to make sure the frontend and backend validation logic matches.
 
 ### Optional attributes
 
-todo describe the other attributes
+The Currency component supports several optional attributes to customise behaviour, usability, and integration with your 
+application. All attributes are optional unless stated otherwise.
+
+#### Value handling
+
+| Attribute              | Type                 | Description |
+|------------------------|----------------------|-------------|
+| `value`                | `Currency\|null`     | Explicitly sets the value of the component. When provided, this takes precedence over model binding. |
+| `value-using`          | `callable\|null`     | Callback used to resolve the value from a model or context. Receives the model and component attributes as arguments. |
+
+These attributes are mainly intended for advanced use cases, such as custom model structures or derived values.
+
+---
+
+#### Validation and constraints
+
+| Attribute  | Type            | Description |
+|------------|-----------------|-------------|
+| `required` | `bool`          | Marks the currency input as required and updates accessibility attributes accordingly. |
+| `min`      | `int\|float`    | Minimum allowed value for the currency amount. |
+| `max`      | `int\|float`    | Maximum allowed value for the currency amount. |
+
+These attributes affect both frontend behaviour and accessibility hints, but do not replace backend validation.
+
+---
+
+#### Behaviour
+
+| Attribute       | Type   | Description |
+|-----------------|--------|-------------|
+| `focus-switch`  | `bool` | Enables or disables automatic focus switching from the whole number field to the cents field when typing `.` or `,`. Defaults to the global configuration value. |
+| `autofocus`     | `bool` | Automatically focuses the first interactive field of the component when the page loads. |
+| `tabindex`      | `int`  | Sets the base tabindex for the component. Subsequent internal fields increment from this value. |
+
+---
+
+#### Presentation
+
+| Attribute      | Type     | Description |
+|----------------|----------|-------------|
+| `placeholder`  | `string` | Placeholder text for the whole number input field. |
+| `hint`         | `string` | Additional helper text displayed below the input, typically used to clarify formatting or expected values. |
+
+---
+
+#### Form integration
+
+| Attribute | Type           | Description |
+|----------|----------------|-------------|
+| `form`   | `string\|null` | Associates the currency input with a specific HTML form ID, allowing it to be used outside the form element. |
+
+Like all Eloquent UI components, the Currency component also accepts arbitrary HTML and `data-*` attributes, which are applied to the root `input-group` element.
+
 
 ## Features
 
