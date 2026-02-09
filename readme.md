@@ -9,149 +9,16 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/bricknpc/eloquent-ui)
 ![GitHub Release](https://img.shields.io/github/v/release/bricknpc/eloquent-ui)
 
-Eloquent UI is a comprehensive, PHP-first UI framework for Laravel applications that bridges the gap between backend 
-and frontend. Unlike traditional component libraries that only provide frontend components, Eloquent UI delivers a 
-complete full-stack solution with high-level UI components, custom casts, validation rules, database schema helpers, 
-and request handling. Everything you need to build rich, interactive frontends backed by backend integrations without 
-writing repetitive boilerplate.
+## Full-stack UI components for Laravel
 
-## Full-Stack Components
+**Build complete, accessible Laravel user interfaces with less code and fewer compromises.**
 
-Eloquent UI provides complete implementations for complex UI patterns like currency inputs, confirmation modals, and 
-form components. Each component includes:
+Eloquent UI is a full-stack, PHP-first UI framework for Laravel. It goes beyond frontend components by integrating
+deeply with the backend, so common concerns are handled once and handled correctly.
 
-- **Frontend**: Beautiful, accessible Blade components with JavaScript interactions based on Bootstrap 5
-- **Backend**: Custom casts (e.g., `CurrencyCast`), validation rules, and request helpers
-- **Database**: Schema macros for creating the proper database structure (e.g., `$table->currency('amount')`)
-- **Integration**: Seamless model binding and form handling
-
-## Stop Writing Boilerplate
-
-Eloquent UI eliminates the need to write repetitive HTML, Blade directives, and accessibility markup. Instead of this:
-
-```html
-<div class="row mb-3">
-    <label for="email" class="col-sm-3 col-form-label">
-        Email:
-        <span class="text-danger" aria-hidden="true">*</span>
-        <span class="visually-hidden">required</span>
-    </label>
-    <div class="col-sm-9">
-        <div class="input-group has-validation">
-            <span class="input-group-text bg-secondary" id="email-addon">@</span>
-            <input
-                type="email"
-                name="email"
-                class="form-control @error($name) is-invalid @enderror"
-                id="email"
-                aria-describedby="email-addon email-feedback"
-                aria-required="true"
-                value="{{ old('email') }}"
-                required="required"
-                placeholder="example@email.com"
-            />
-            <div class="form-text">
-                Please enter your email address.
-            </div>
-            <div id="email-feedback" class="invalid-feedback" role="alert">
-                @error('email')
-                    {{ $message }}
-                @enderror
-            </div>
-        </div>
-    </div>
-</div>
-```
-
-You write this:
-
-```html
-<x-eloquent-ui::form.email name="email" label="Email:" hint="Please enter your email address." placeholder="example@email.com" required="true">
-    <x-slot:prefix>
-        <x-eloquent-ui::input.addon.text>@</x-eloquent-ui::input.addon.text>
-    </x-slot:prefix>
-</x-eloquent-ui::form.email>
-```
-
-## Complete Backend Integration
-
-Eloquent UI isn't just about prettier templates. For example, the currency component provides:
-
-**In your migration:**
-```php
-$table->currency('amount')->nullable()->index(double: true);
-// Creates: amount (bigInteger), amount_currency (string), and composite index
-```
-
-**In your model:**
-```php
-protected function casts(): array
-{
-    return [
-        'amount' => CurrencyCast::class,
-    ];
-}
-```
-
-**In your form request:**
-```php
-use BrickNPC\EloquentUI\Http\Traits\HasCurrencyInput;
-
-protected function rules(): array
-{
-    return [
-        'amount' => new Currency(
-            required: true,
-            min: 0,
-            max: 9999.99,
-            currencies: ['EUR', 'JPY'],
-        ),
-    ];
-}
-```
-
-**In your Blade view:**
-```html
-<x-eloquent-ui::form action="#" :model="$order">
-    <x-eloquent-ui::currency name="amount" label="Amount" />
-</x-eloquent-ui::form>
-```
-
-**In your backend code:**
-```php
-$model = MyModel::first();
-
-$model->amount->whole; // The whole amount before the decimal separator
-$model->amount->cents; // The cent amount after the decimal separator
-$model->amount->amount; // The whole amount as a float
-$model->amount->amountInCents; // The total amount in cents as an integer
-$model->amount->currency; // The currency code
-```
-
-**Setting amounts**
-```php
-$model = MyModel::first();
-
-$model->amount = 123.45; // Sets the amount to 123.45
-
-$model->amount = new \BrickNPC\EloquentUI\ValueObjects\Currency(
-    100, 
-    10, 
-    1.10,
-    110,
-    'EUR'
-); // Set the amount as a currency
-
-$model->amount = 199; // Set the amount in cents to 1.99
-```
-
-The component automatically handles:
-- Model binding with the `Currency` value object
-- Proper storage of cents as integers and currency codes
-- Validation of min/max constraints
-- Paste support with automatic decimal separator detection
-- Currency dropdown with accessibility announcements
-- Overflow/underflow between whole and cents fields
+Instead of assembling forms, validation, accessibility, and error handling yourself, Eloquent UI provides
+production-ready components that manage the entire flow for you. It includes backend components like validation rules, 
+model casts, database schema macros, request helpers, and more.
 
 ## Companion Package
 
@@ -162,8 +29,9 @@ interactions.
 
 ## Framework Support
 
-Eloquent UI is built on top of [Bootstrap 5](https://getbootstrap.com). Although there are plans to support other 
-UI frameworks in the future, Bootstrap is currently the only supported framework.
+Eloquent UI is built on top of [Bootstrap 5](https://getbootstrap.com) and [Laravel](https://laravel.com). Although 
+there are plans to support other frontend UI frameworks in the future, Bootstrap is currently the only supported 
+framework.
 
 ## Installation
 
@@ -189,13 +57,14 @@ php artisan vendor:publish --tag=eloquent-ui-assets
 ```
 
 You will need to publish at least the assets because those contain the JavaScript and CSS required to render the 
-components. Include the assets in your layout:
+components. Include the assets in your layout and add the custom meta tag:
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <!-- Other head elements -->
+        {{ BrickNPC\EloquentUI\meta() }}
         <link rel="stylesheet" href="{{ asset('vendor/eloquent-ui/eloquent-ui.css') }}" />
     </head>
     <body>

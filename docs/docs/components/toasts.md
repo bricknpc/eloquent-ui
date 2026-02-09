@@ -13,11 +13,7 @@ toaster component in your layout.
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {{ BrickNPC\EloquentUI\meta() }}
-        <title>My App</title>
-        <!-- Other head content -->
+        <!-- Head content -->
     </head>
     <body>
         <!-- Other content -->
@@ -64,7 +60,8 @@ const EloquentUIToastList = document.querySelectorAll('.toast');
     toast, {
         autohide: toast.dataset[`${window.EloquentUI.ns}AutoHide`] === 'true',
         delay: parseInt(toast.dataset[`${window.EloquentUI.ns}AutoHideDelay`]),
-    }).show());
+    },
+).show());
 ```
 
 ### Position
@@ -88,6 +85,19 @@ There are eight available positions:
 - `BrickNPC\EloquentUI\Enums\ToastLocation::LeftMiddle`
 - `BrickNPC\EloquentUI\Enums\ToastLocation::RightMiddle`
 
+### Attributes
+
+You can pass any attribute to the toast component that you would normally pass to a regular HTML element, including 
+custom classes. It will be added to the toast container element.
+
+```html
+<x-eloquent-ui::toast.toaster 
+    :location="BrickNPC\EloquentUI\Enums\ToastLocation::TopRight" 
+    class="m-2" 
+    data-custom="toaster-container" 
+/>
+```
+
 ## Backend
 
 Eloquent UI not only provides a frontend component for toasts, it also adds a Toaster service to your app that you can 
@@ -110,10 +120,10 @@ use BrickNPC\EloquentUI\Services\Toaster;
 use App\Http\Requests\StoreProductRequest;
 use BrickNPC\EloquentUI\ValueObjects\Toast;
 
-class StoreProductController extends Controller
+readonly class StoreProductController
 {
     public function __construct(
-        private readonly Toaster $toaster,
+        private Toaster $toaster,
     ) {}
     
 
@@ -132,6 +142,9 @@ class StoreProductController extends Controller
             autohideDelayInMs: 5000,
             borderTheme: 'dark',
         ));
+        
+        // Or in case of an error
+        $this->toaster->danger('Could not create product.', $exception->getMessage());
     }
 }
 ```
@@ -140,14 +153,14 @@ class StoreProductController extends Controller
 
 When sending out a toast, there are several different options available.
 
-| Option:             | Type:                                  | Required:                               | Description:                                                                                                                            |
-|---------------------|----------------------------------------|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| `title`             | `string`                               | Yes                                     | The title of the toast message.                                                                                                         |
-| `description`       | `string`                               | No                                      | A description of the toast message that will be displayed below the title.                                                              |
-| `theme`             | `BrickNPC\EloquentUI\Enums\ToastTheme` | Yes (defaults to `ToastTheme::Success`) | The theme of the toast. Either `ToastTheme::Success`, `ToastTheme::Warning`, `ToastTheme::Danger` or `ToastTheme::Info`.                |
-| `autohide`          | `bool`                                 | Yes (defaults to `true`)                | Whether the toast should automatically hide after a delay.                                                                              |
-| `autohideDelayInMs` | `int`                                  | Yes (defaults to `5000`)                | The delay in milliseconds before the toast should hide.                                                                                 |
-| `borderTheme`       | `string`                               | Yes (defaults to `dark`)                | The theme for the border colour of the toasts. This should be one of your Bootstrap theme colours, like `primary`, `warning` or `dark`. |
+| Option:             | Type:                                  | Required:                               | Description:                                                                                                                                                                                            |
+|---------------------|----------------------------------------|-----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `title`             | `string`                               | Yes                                     | The title of the toast message.                                                                                                                                                                         |
+| `description`       | `string`                               | No                                      | A description of the toast message that will be displayed below the title.                                                                                                                              |
+| `theme`             | `BrickNPC\EloquentUI\Enums\ToastTheme` | Yes (defaults to `ToastTheme::Success`) | The theme of the toast. Either `ToastTheme::Success`, `ToastTheme::Warning`, `ToastTheme::Danger` or `ToastTheme::Info`. This will not affect functionality, only the colour of the icon in the header. |
+| `autohide`          | `bool`                                 | Yes (defaults to `true`)                | Whether the toast should automatically hide after a delay.                                                                                                                                              |
+| `autohideDelayInMs` | `int`                                  | Yes (defaults to `5000`)                | The delay in milliseconds before the toast should autohide.                                                                                                                                             |
+| `borderTheme`       | `string`                               | Yes (defaults to `dark`)                | The theme for the border colour of the toasts. This should be one of your Bootstrap theme colours, like `primary`, `warning` or `dark`.                                                                 |
 
 ### Helper methods
 
