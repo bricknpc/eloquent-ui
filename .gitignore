@@ -3,4 +3,5 @@ vendor/
 node_modules/
 tests/coverage/html/*
 !tests/coverage/html/.gitkeep
+.phpunit.cache
 .php-cs-fixer.cache
