@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BrickNPC\EloquentUI\Tests\Feature\Http\Components\Input;
 
+use BrickNPC\EloquentUI\Enums\LabelPosition;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use BrickNPC\EloquentUI\Tests\TestCase;
@@ -150,7 +151,7 @@ class TextareaTest extends TestCase
 
     public function test_it_excludes_internal_attributes_from_textarea(): void
     {
-        $view = $this->blade('<x-eloquent-ui::input.textarea name="description" label-position="left" required-icon="*" />');
+        $view = $this->blade('<x-eloquent-ui::input.textarea name="description" label-position="start" required-icon="*" />');
 
         $view->assertDontSee('label-position', false);
         $view->assertDontSee('required-icon', false);
@@ -250,9 +251,11 @@ class TextareaTest extends TestCase
     }
 
     #[DataProvider('labelPositionProvider')]
-    public function test_it_renders_label_in_different_positions(string $position, array $expectedClasses): void
+    public function test_it_renders_label_in_different_positions(LabelPosition $position, array $expectedClasses): void
     {
-        $view = $this->blade('<x-eloquent-ui::input.textarea name="description" label="Description:" label-position="' . $position . '" />');
+        $view = $this->blade('<x-eloquent-ui::input.textarea name="description" label="Description:" label-position="$position" />', [
+            'position' => $position,
+        ]);
 
         foreach ($expectedClasses as $class) {
             $view->assertSee($class, false);
@@ -261,19 +264,19 @@ class TextareaTest extends TestCase
 
     public static function labelPositionProvider(): \Generator
     {
-        yield 'top' => ['top', ['col-12']];
+        yield [LabelPosition::Top, ['col-12']];
 
-        yield 'bottom' => ['bottom', ['col-12', 'order-sm-last']];
+        yield [LabelPosition::Bottom, ['col-12', 'order-sm-last']];
 
-        yield 'left' => ['left', ['col-sm-3', 'col-sm-9']];
+        yield [LabelPosition::Start, ['col-sm-3', 'col-sm-9']];
 
-        yield 'right' => ['right', ['col-sm-3', 'order-sm-last', 'col-sm-9', 'order-sm-first']];
+        yield [LabelPosition::End, ['col-sm-3', 'order-sm-last', 'col-sm-9', 'order-sm-first']];
     }
 
     #[DataProvider('labelWidthProvider')]
     public function test_it_renders_label_with_custom_width(int $labelWidth, string $expectedLabelClass, string $expectedInputClass): void
     {
-        $view = $this->blade('<x-eloquent-ui::input.textarea name="description" label="Description:" label-position="left" label-width="' . $labelWidth . '" />');
+        $view = $this->blade('<x-eloquent-ui::input.textarea name="description" label="Description:" label-position="start" label-width="' . $labelWidth . '" />');
 
         $view->assertSee($expectedLabelClass, false);
         $view->assertSee($expectedInputClass, false);
@@ -321,7 +324,7 @@ class TextareaTest extends TestCase
             <x-eloquent-ui::input.textarea 
                 name="bio" 
                 label="Biography:" 
-                label-position="left"
+                label-position="start"
                 label-width="4"
                 required
                 required-icon="*"

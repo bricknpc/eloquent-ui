@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace BrickNPC\EloquentUI\Providers;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use BrickNPC\EloquentUI\Http\Composers\ToastComposer;
 use BrickNPC\EloquentUI\Database\Schema\CurrencyColumn;
+use BrickNPC\EloquentUI\Http\Views\Components\Card\Tabs;
 
 class EloquentUIServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,8 @@ class EloquentUIServiceProvider extends ServiceProvider
         $this->registerBlueprintMacros();
 
         View::composer('*', ToastComposer::class);
+
+        Blade::component(Tabs::class, 'tabs', 'eloquent-ui');
     }
 
     public function register(): void

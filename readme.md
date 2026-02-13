@@ -103,9 +103,9 @@ cd eloquent-ui
 Up the docker container and install the dependencies.
 
 ```bash
-docker-compose up -d
-docker-compose exec php composer install
-docker-compose exec php npm ci
+docker compose up -d
+docker compose exec php composer install
+docker compose exec php npm ci
 ```
 
 ### Executing commands in the container
@@ -113,25 +113,25 @@ docker-compose exec php npm ci
 You can execute commands in the container using the exec option.
 
 ```bash
-docker-compose exec php <your command>
+docker compose exec php <your command>
 ```
 
 If you rather log in to the container and execute commands manually, you can use this:
 
 ```bash
-docker-compose exec php bash
+docker compose exec php bash
 ```
 
 ### Stopping the container
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Build frontend assets
 
 ```bash
-docker-compose exec php npm run build
+docker compose exec php npm run build
 ```
 
 The build will automatically run anytime you change anything as long as the container is running. Make sure to commit 
@@ -157,7 +157,7 @@ update the documentation and the code.
 You can run the tests using the following command.
 
 ```bash
-docker-compose exec php composer test
+docker compose exec php composer test
 ```
 
 ### Test coverage
@@ -169,17 +169,17 @@ However, you can still generate test coverage for the rest of the code base, and
 
 ## Code quality tools
 
-Eloquent Tables uses PHP CS Fixer and PHPStan to ensure a high-quality code base. You can run the tools locally
+Eloquent UI uses PHP CS Fixer and PHPStan to ensure a high-quality code base. You can run the tools locally
 using the following commands.
 
 **PHP CS Fixer:**
 ```bash
-docker-compose exec php composer cs
+docker compose exec php composer cs
 ```
 
 **PHPStan:**
 ```bash
-docker-compose exec php composer ps
+docker compose exec php composer ps
 ```
 
 ## Community showcase

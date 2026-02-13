@@ -1,0 +1,10 @@
+{
+  "position": 4,
+  "label": "Cards",
+  "key": "cards",
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index"
+  }
+}

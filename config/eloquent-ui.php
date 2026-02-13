@@ -10,6 +10,7 @@ return [
      * in case there are conflicts with other libraries.
      */
     'data-namespace' => 'eloquent-ui',
+
     /*
      * Currency formatting configuration
      */
