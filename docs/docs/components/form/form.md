@@ -183,7 +183,8 @@ The label position determines where the label is rendered relative to the input.
 
 When adding a label to an input, Eloquent UI uses Bootstrap's grid system to determine the width of the label. You can
 set the width of the label using the `label-width` attribute on the form or the input component. The value should be the
-number of columns the label should span.
+number of columns the label should span. The label width is only applied when the label position is set to 
+`BrickNPC\EloquentUI\Enums\LabelPosition::Start` or `BrickNPC\EloquentUI\Enums\LabelPosition::End`.
 
 ```html
 <x-eloquent-ui::form action="/products" method="post" label-width="2">

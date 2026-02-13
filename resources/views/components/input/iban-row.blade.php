@@ -12,7 +12,7 @@
     'placeholder'    => null,
     'autofocus'      => false,
     'tabindex'       => null,
-    'label-position' => config('eloquent-ui.input.position', LabelPosition::Left),
+    'label-position' => config('eloquent-ui.input.position', LabelPosition::Start),
     'hint'           => null,
     'required-style' => config('eloquent-ui.input.required-style', 'danger'),
 ])

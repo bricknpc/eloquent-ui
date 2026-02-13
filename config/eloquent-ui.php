@@ -26,7 +26,7 @@ return [
         /*
          * The default position of the label relative to the input. Can be overridden on a per-input basis.
          */
-        'position' => LabelPosition::Left,
+        'position' => LabelPosition::Start,
         /*
          * The default style to use for the required input marker. The style should be a Bootstrap 5 theme colour, like
          * primary, secondary, success, danger, warning, info, light, or dark. If you have a custom theme, you can use

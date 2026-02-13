@@ -27,16 +27,16 @@ class LabelPositionTest extends TestCase
         $this->assertCount(4, $cases);
         $this->assertContains(LabelPosition::Top, $cases);
         $this->assertContains(LabelPosition::Bottom, $cases);
-        $this->assertContains(LabelPosition::Left, $cases);
-        $this->assertContains(LabelPosition::Right, $cases);
+        $this->assertContains(LabelPosition::Start, $cases);
+        $this->assertContains(LabelPosition::End, $cases);
     }
 
     public function test_it_has_correct_values(): void
     {
         $this->assertSame('top', LabelPosition::Top->value);
         $this->assertSame('bottom', LabelPosition::Bottom->value);
-        $this->assertSame('left', LabelPosition::Left->value);
-        $this->assertSame('right', LabelPosition::Right->value);
+        $this->assertSame('left', LabelPosition::Start->value);
+        $this->assertSame('right', LabelPosition::End->value);
     }
 
     // getLabelClasses() tests
@@ -58,14 +58,14 @@ class LabelPositionTest extends TestCase
     #[DataProvider('labelWidthProvider')]
     public function test_it_returns_correct_label_classes_for_left_position(int $labelWidth, string $expected): void
     {
-        $this->assertSame($expected, LabelPosition::Left->getLabelClasses($labelWidth));
+        $this->assertSame($expected, LabelPosition::Start->getLabelClasses($labelWidth));
     }
 
     #[DataProvider('labelWidthProvider')]
     public function test_it_returns_correct_label_classes_for_right_position(int $labelWidth, string $expected): void
     {
         $expectedWithOrder = $expected . ' order-sm-last';
-        $this->assertSame($expectedWithOrder, LabelPosition::Right->getLabelClasses($labelWidth));
+        $this->assertSame($expectedWithOrder, LabelPosition::End->getLabelClasses($labelWidth));
     }
 
     // Data providers
@@ -90,8 +90,8 @@ class LabelPositionTest extends TestCase
 
     public function test_it_uses_default_label_width_of_3(): void
     {
-        $this->assertSame('col-sm-3', LabelPosition::Left->getLabelClasses());
-        $this->assertSame('col-sm-3 order-sm-last', LabelPosition::Right->getLabelClasses());
+        $this->assertSame('col-sm-3', LabelPosition::Start->getLabelClasses());
+        $this->assertSame('col-sm-3 order-sm-last', LabelPosition::End->getLabelClasses());
     }
 
     #[DataProvider('invalidLabelWidthProvider')]
@@ -134,14 +134,14 @@ class LabelPositionTest extends TestCase
     #[DataProvider('inputWidthProvider')]
     public function test_it_returns_correct_input_classes_for_left_position(int $labelWidth, string $expected): void
     {
-        $this->assertSame($expected, LabelPosition::Left->getInputClasses($labelWidth));
+        $this->assertSame($expected, LabelPosition::Start->getInputClasses($labelWidth));
     }
 
     #[DataProvider('inputWidthProvider')]
     public function test_it_returns_correct_input_classes_for_right_position(int $labelWidth, string $expected): void
     {
         $expectedWithOrder = $expected . ' order-sm-first';
-        $this->assertSame($expectedWithOrder, LabelPosition::Right->getInputClasses($labelWidth));
+        $this->assertSame($expectedWithOrder, LabelPosition::End->getInputClasses($labelWidth));
     }
 
     public static function inputWidthProvider(): array
@@ -165,16 +165,16 @@ class LabelPositionTest extends TestCase
     public function test_it_calculates_input_width_correctly(): void
     {
         // labelWidth 1 -> inputWidth 11
-        $this->assertSame('col-sm-11', LabelPosition::Left->getInputClasses(1));
+        $this->assertSame('col-sm-11', LabelPosition::Start->getInputClasses(1));
 
         // labelWidth 3 -> inputWidth 9
-        $this->assertSame('col-sm-9', LabelPosition::Left->getInputClasses(3));
+        $this->assertSame('col-sm-9', LabelPosition::Start->getInputClasses(3));
 
         // labelWidth 6 -> inputWidth 6
-        $this->assertSame('col-sm-6', LabelPosition::Left->getInputClasses(6));
+        $this->assertSame('col-sm-6', LabelPosition::Start->getInputClasses(6));
 
         // labelWidth 12 -> inputWidth 0
-        $this->assertSame('col-sm-0', LabelPosition::Left->getInputClasses(12));
+        $this->assertSame('col-sm-0', LabelPosition::Start->getInputClasses(12));
     }
 
     #[DataProvider('invalidLabelWidthProvider')]
@@ -213,13 +213,13 @@ class LabelPositionTest extends TestCase
 
     public function test_it_handles_minimum_valid_label_width(): void
     {
-        $this->assertSame('col-sm-1', LabelPosition::Left->getLabelClasses(1));
-        $this->assertSame('col-sm-11', LabelPosition::Left->getInputClasses(1));
+        $this->assertSame('col-sm-1', LabelPosition::Start->getLabelClasses(1));
+        $this->assertSame('col-sm-11', LabelPosition::Start->getInputClasses(1));
     }
 
     public function test_it_handles_maximum_valid_label_width(): void
     {
-        $this->assertSame('col-sm-12', LabelPosition::Left->getLabelClasses(12));
-        $this->assertSame('col-sm-0', LabelPosition::Left->getInputClasses(12));
+        $this->assertSame('col-sm-12', LabelPosition::Start->getLabelClasses(12));
+        $this->assertSame('col-sm-0', LabelPosition::Start->getInputClasses(12));
     }
 }

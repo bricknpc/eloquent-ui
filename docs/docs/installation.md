@@ -37,13 +37,13 @@ Include the CSS and JavaScript files in your layout. Also, add the custom meta-t
         <title>My App</title>
         <!-- Other head elements, your app CSS, etc -->
         {{ BrickNPC\EloquentUI\meta() }}
-        @asset('vendor/eloquent-ui/css/eloquent-ui.css')
+        @asset('vendor/eloquent-ui/eloquent-ui.css')
     </head>
     <body>
         <!-- body contents -->
         
         <!-- Your app scripts -->
-        @asset('vendor/eloquent-ui/js/eloquent-ui.js')
+        @asset('vendor/eloquent-ui/eloquent-ui.js')
     </body>
 </html>
 ```
@@ -58,7 +58,7 @@ contains the configuration values that are used by the JavaScript components, li
 
 You can now use the components in your views.
 
-```php
+```html
 <x-eloquent-ui::input.currency name="amount" />
 ```
 

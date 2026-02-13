@@ -250,16 +250,16 @@ class TextTest extends TestCase
 
         yield 'bottom' => [LabelPosition::Bottom, ['col-12', 'order-sm-last']];
 
-        yield 'left' => [LabelPosition::Left, ['col-sm-3', 'col-sm-9']];
+        yield 'left' => [LabelPosition::Start, ['col-sm-3', 'col-sm-9']];
 
-        yield 'right' => [LabelPosition::Right, ['col-sm-3', 'order-sm-last', 'col-sm-9', 'order-sm-first']];
+        yield 'right' => [LabelPosition::End, ['col-sm-3', 'order-sm-last', 'col-sm-9', 'order-sm-first']];
     }
 
     #[DataProvider('labelWidthProvider')]
     public function test_it_renders_label_with_custom_width(int $labelWidth, string $expectedLabelClass, string $expectedInputClass): void
     {
         $view = $this->blade('<x-eloquent-ui::input.text name="name" label="Name:" label-position="$position" label-width="' . $labelWidth . '" />', [
-            'position' => LabelPosition::Left,
+            'position' => LabelPosition::Start,
         ]);
 
         $view->assertSee($expectedLabelClass, false);
@@ -314,7 +314,7 @@ class TextTest extends TestCase
     public function test_label_position_left_renders_label_on_left(): void
     {
         $view = $this->blade('<x-eloquent-ui::input.text name="name" label="Name:" :label-position="$position" />', [
-            'position' => LabelPosition::Left,
+            'position' => LabelPosition::Start,
         ]);
 
         $view->assertSee('col-sm-3', false); // Default label width
@@ -324,7 +324,7 @@ class TextTest extends TestCase
     public function test_label_position_right_renders_label_on_right(): void
     {
         $view = $this->blade('<x-eloquent-ui::input.text name="name" label="Name:" :label-position="$position" />', [
-            'position' => LabelPosition::Right,
+            'position' => LabelPosition::End,
         ]);
 
         $view->assertSee('col-sm-3', false);
@@ -371,7 +371,7 @@ class TextTest extends TestCase
                 hint="We\'ll never share your email"
             />
         ', [
-            'position' => LabelPosition::Left,
+            'position' => LabelPosition::Start,
         ]);
 
         $view->assertSee('Email Address:', false);
