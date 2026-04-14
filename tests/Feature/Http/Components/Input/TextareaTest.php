@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace BrickNPC\EloquentUI\Tests\Feature\Http\Components\Input;
 
-use BrickNPC\EloquentUI\Enums\LabelPosition;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use BrickNPC\EloquentUI\Tests\TestCase;
+use BrickNPC\EloquentUI\Enums\LabelPosition;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;

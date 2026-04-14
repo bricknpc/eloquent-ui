@@ -5,7 +5,7 @@
 (function() {
     'use strict';
 
-    const NS = 'eloquent-ui'; // Your namespace from ns() function
+    const NS = window.EloquentUIConfig.ns || 'eloquent-ui'; // todo get from meta tag
 
     class Currency {
         constructor(element) {

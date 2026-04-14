@@ -1,3 +1,4 @@
+import './config'
 import './components/currency'
 import './components/once'
 

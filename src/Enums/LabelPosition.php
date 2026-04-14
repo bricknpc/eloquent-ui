@@ -13,6 +13,8 @@ enum LabelPosition: string
     case Start  = 'start';
     case End    = 'end';
 
+    case Floating = 'floating';
+
     /**
      * @throws InvalidColumns
      */
@@ -23,10 +25,11 @@ enum LabelPosition: string
         }
 
         return match ($this) {
-            self::Top     => 'col-12',
-            self::Bottom  => 'col-12 order-sm-last',
-            self::Start   => 'col-sm-' . $labelWidth,
-            self::End     => 'col-sm-' . $labelWidth . ' order-sm-last',
+            self::Top      => 'col-12',
+            self::Bottom   => 'col-12 order-sm-last',
+            self::Start    => 'col-sm-' . $labelWidth,
+            self::End      => 'col-sm-' . $labelWidth . ' order-sm-last',
+            self::Floating => '',
         };
     }
 
@@ -40,10 +43,11 @@ enum LabelPosition: string
         }
 
         return match ($this) {
-            self::Top     => 'col-12',
-            self::Bottom  => 'col-12 order-sm-first',
-            self::Start   => 'col-sm-' . (12 - $labelWidth),
-            self::End     => 'col-sm-' . (12 - $labelWidth) . ' order-sm-first',
+            self::Top      => 'col-12',
+            self::Bottom   => 'col-12 order-sm-first',
+            self::Start    => 'col-sm-' . (12 - $labelWidth),
+            self::End      => 'col-sm-' . (12 - $labelWidth) . ' order-sm-first',
+            self::Floating => '',
         };
     }
 }

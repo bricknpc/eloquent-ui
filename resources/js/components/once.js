@@ -4,7 +4,7 @@
 (function(window) {
     'use strict';
 
-    const namespace = window.EloquentUIConfig?.namespace || 'eloquent-ui'; // todo get from meta tag
+    const namespace = window.EloquentUIConfig.ns || 'eloquent-ui'; // todo get from meta tag
     const onceAttr = `data-${namespace}-once`;
     const onceOthersAttr = `data-${namespace}-once-others`;
 

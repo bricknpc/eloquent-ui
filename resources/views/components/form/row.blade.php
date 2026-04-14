@@ -19,7 +19,7 @@
     'rowClass' => config('eloquent-ui.input.row-class', 'mb-3'),
 ])
 
-<div {{ $attributes->merge(['class' => 'row ' . $rowClass]) }}>
+<div {{ $attributes->merge(['class' => 'row ' . $rowClass . ($labelPosition === LabelPosition::Floating ? ' form-floating' : '')]) }}>
     <label
             for="{{ $for }}"
             id="{{ $id ?? $for . '-label' }}"

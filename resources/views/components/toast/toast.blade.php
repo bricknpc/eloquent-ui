@@ -20,13 +20,13 @@
 >
     <div class="toast-header border-bottom border-{{ $toast->borderTheme }}">
         <div class="d-inline-block rounded-1 bg-{{ $toast->theme->getCssClass() }} me-2" style="width: 1rem; height: 1rem;">&nbsp;</div>
-        <strong class="me-auto">{{ $toast->type->getTitle() }}</strong>
+        <strong class="me-auto">{{ $toast->theme->getTitle() }}</strong>
         <small>{{ __('now') }}</small>
         <button type="button" class="btn-close text-light" data-bs-dismiss="toast" aria-label="{{ __('Close') }}"></button>
     </div>
     <div class="toast-body">
         <p>
-            {{ $message->title }}
+            {{ $toast->title }}
             @if($toast->message)
                 <br />
                 {{ $toast->message }}

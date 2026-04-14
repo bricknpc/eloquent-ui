@@ -32,5 +32,5 @@ function meta(): Htmlable
         'ns' => str(ns())->camel(),
     ];
 
-    return new HtmlString('<meta name="eloquent-ui" content="' . json_encode($content) . '" />');
+    return new HtmlString('<meta name="eloquent-ui" content="' . htmlspecialchars(json_encode($content, JSON_THROW_ON_ERROR), ENT_QUOTES, 'UTF-8') . '" />');
 }
