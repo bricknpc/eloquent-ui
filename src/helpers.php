@@ -30,6 +30,7 @@ function meta(): Htmlable
 {
     $content = [
         'ns' => str(ns())->camel(),
+        'nsDash' => str(ns())->kebab(),
     ];
 
     return new HtmlString('<meta name="eloquent-ui" content="' . htmlspecialchars(json_encode($content, JSON_THROW_ON_ERROR), ENT_QUOTES, 'UTF-8') . '" />');

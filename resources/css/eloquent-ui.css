@@ -2,3 +2,18 @@
     min-width: 25rem;
     padding: 1rem;
 }
+
+.bn-container .bn-editor {
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    min-height: 8rem;
+}
+
+.bn-container .bn-editor:focus-within {
+    outline: 0;
+    border-color: var(--bs-primary);
+    box-shadow: var(--bs-focus-ring-box-shadow, 0 0 0 0.25rem rgba(13, 110, 253, 0.25));
+}

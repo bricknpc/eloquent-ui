@@ -28,6 +28,10 @@
     if ($labelPosition !== null && !$labelPosition instanceof LabelPosition) {
         $labelPosition = LabelPosition::tryFrom($labelPosition);
     }
+
+    if (is_array($modelValue)) {
+        $modelValue = json_encode($modelValue);
+    }
 @endphp
 
 @if($label !== null)
@@ -42,22 +46,22 @@
         :label-width="$labelWidth"
         :row-class="$rowClass"
     >
-        <div data-{{ ns() }}-blocknote-editor data-value="{{ old($name, $value ?? $modelValue) }}" {{ $attributes }}>
-            <input
-                type="hidden"
-                name="{{ $name }}"
-                value="{{ old($name, $value ?? $modelValue) }}"
-                @if($form !== null) form="{{ $form }}" @endif
-            />
-        </div>
-    </x-eloquent-ui::form.row>
-@else
-    <div data-{{ ns() }}-blocknote-editor data-value="{{ old($name, $value ?? $modelValue) }}" {{ $attributes }}>
+        <div data-{{ ns() }}-blocknote-editor data-input-target="#editor-{{ $name }}-input" data-value="{{ old($name, $value ?? $modelValue) }}" {{ $attributes }}></div>
         <input
             type="hidden"
+            id="editor-{{ $name }}-input"
             name="{{ $name }}"
             value="{{ old($name, $value ?? $modelValue) }}"
             @if($form !== null) form="{{ $form }}" @endif
         />
-    </div>
+    </x-eloquent-ui::form.row>
+@else
+    <div data-{{ ns() }}-blocknote-editor data-input-target="#editor-{{ $name }}-input" data-value="{{ old($name, $value ?? $modelValue) }}" {{ $attributes }}></div>
+    <input
+        type="hidden"
+        id="editor-{{ $name }}-input"
+        name="{{ $name }}"
+        value="{{ old($name, $value ?? $modelValue) }}"
+        @if($form !== null) form="{{ $form }}" @endif
+    />
 @endif

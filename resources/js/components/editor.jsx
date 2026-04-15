@@ -4,8 +4,6 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 // Default styles for the mantine editor
 import "@blocknote/mantine/style.css";
-// Include the included Inter font
-import "@blocknote/core/fonts/inter.css";
 
 function Editor({ value, onChange }) {
     const editor = useCreateBlockNote({
@@ -24,13 +22,17 @@ function Editor({ value, onChange }) {
 
 export function mountEditor(el) {
     const value = el.dataset.value || "";
+    const target = el.dataset.inputTarget;
 
     const root = createRoot(el);
     root.render(
         <Editor
             value={value}
             onChange={(val) => {
-                el.querySelector("input").value = val;
+                const input = document.querySelector(target);
+
+                input.value = val;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
             }}
         />
     );
