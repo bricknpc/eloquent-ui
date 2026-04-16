@@ -46,7 +46,7 @@
         :label-width="$labelWidth"
         :row-class="$rowClass"
     >
-        <div data-{{ ns() }}-blocknote-editor data-input-target="#editor-{{ $name }}-input" data-value="{{ old($name, $value ?? $modelValue) }}" {{ $attributes }}></div>
+        <div data-{{ ns() }}-blocknote-editor data-input-target="input[name='{{ $name }}']" data-value="{{ old($name, $value ?? $modelValue) }}" {{ $attributes }}></div>
         <input
             type="hidden"
             id="editor-{{ $name }}-input"
@@ -56,7 +56,7 @@
         />
     </x-eloquent-ui::form.row>
 @else
-    <div data-{{ ns() }}-blocknote-editor data-input-target="#editor-{{ $name }}-input" data-value="{{ old($name, $value ?? $modelValue) }}" {{ $attributes }}></div>
+    <div data-{{ ns() }}-blocknote-editor data-input-target="input[name='{{ $name }}']" data-value="{{ old($name, $value ?? $modelValue) }}" {{ $attributes }}></div>
     <input
         type="hidden"
         id="editor-{{ $name }}-input"
