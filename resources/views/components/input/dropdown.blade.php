@@ -1,3 +1,1 @@
-<!--
-Alias for the select component
--->
+<x-eloquent-ui::input.select {{ $attributes }} />
