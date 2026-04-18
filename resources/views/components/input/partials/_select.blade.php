@@ -47,7 +47,7 @@
                ->except(['labelPosition', 'label-position', 'requiredIcon', 'required-icon', 'requiredStyle', 'required-style', 'labelWidth', 'label-width', 'rowClass', 'row-class', 'model', 'confirm'])
            }}
         >
-            <span class="eui-dropdown-values d-inline-flex flex-wrap align-items-center gap-1 flex-grow-1">
+            <span class="eui-dropdown-values dropdown-values d-inline-flex flex-wrap align-items-center gap-1 flex-grow-1">
                 @if($multiple || $allowCreate)
                     <span
                         class="eui-dropdown-input border-0 rounded-3 border-transparent p-0"
@@ -60,9 +60,9 @@
             <span
                 class="eui-dropdown-toggle-btn"
                 data-{{ ns() }}-dropdown-toggle
-                data-{{ ns() }}-dropdown-down="˅"
-                data-{{ ns() }}-dropdown-up="˄"
-            >˅</span>
+                data-{{ ns() }}-dropdown-down="⏷"
+                data-{{ ns() }}-dropdown-up="⏶"
+            >⏷</span>
         </div>
 
         <div

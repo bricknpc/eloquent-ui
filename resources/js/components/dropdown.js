@@ -189,7 +189,7 @@ export default class Dropdown {
     }
 
     renderBadges() {
-        this.valuesSpan.querySelectorAll('.dropdown-value-badge').forEach(badge => badge.remove());
+        this.valuesSpan?.querySelectorAll('.dropdown-value-badge').forEach(badge => badge.remove());
 
         this.selected.forEach(({ value, label }) => {
             const badge = document.createElement('span');
