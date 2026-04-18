@@ -17,3 +17,74 @@
     border-color: var(--bs-primary);
     box-shadow: var(--bs-focus-ring-box-shadow, 0 0 0 0.25rem rgba(13, 110, 253, 0.25));
 }
+
+.eui-dropdown-control {
+    cursor: text;
+    min-height: 38px;
+}
+
+.eui-dropdown-input:focus,
+.eui-dropdown-input:focus-visible {
+    border-color: transparent;
+    outline: 0;
+}
+
+.eui-dropdown-toggle-btn {
+    cursor: pointer;
+    user-select: none;
+    padding-left: 0.5rem;
+    flex-shrink: 0;
+}
+
+.eui-dropdown-option {
+    cursor: pointer;
+}
+
+.eui-dropdown-option:hover,
+.eui-dropdown-option.active {
+    background-color: var(--bs-primary);
+    color: var(--bs-light);
+}
+
+.eui-dropdown-option.selected {
+    background-color: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+}
+
+.eui-dropdown-option.selected:hover,
+.eui-dropdown-option.selected.active {
+    background-color: var(--bs-primary);
+    color: var(--bs-light);
+}
+
+.eui-dropdown-create {
+    cursor: pointer;
+}
+
+.eui-dropdown-create:hover {
+    background-color: var(--bs-primary);
+    color: var(--bs-light);
+}
+
+.eui-dropdown-badge {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--bs-primary-border-subtle);
+    border-radius: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    color: var(--bs-primary-text-emphasis);
+    background-color: var(--bs-primary-bg-subtle);
+    font-size: 0.875em;
+    white-space: nowrap;
+}
+
+.eui-dropdown-badge-remove {
+    margin-left: 0.35rem;
+    cursor: pointer;
+    opacity: 0.6;
+    line-height: 1;
+}
+
+.eui-dropdown-badge-remove:hover {
+    opacity: 1;
+}
