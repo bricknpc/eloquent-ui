@@ -45,22 +45,32 @@ export default class Dropdown {
 
     _initSelected() {
         const rawValue = this.el.getAttribute(`data-${this.nsDashed}-value`);
-        if (!rawValue) {
-            return;
-        }
+        if (!rawValue) return;
 
         try {
             const parsed = JSON.parse(rawValue);
+
             if (this.multiple) {
+                let entries = [];
+
                 if (Array.isArray(parsed)) {
-                    parsed.forEach(v => {
-                        const opt = [...this.allOptions].find(o => o.dataset.value === v);
-                        this.selected.push({ value: v, label: opt ? opt.dataset.label : v });
-                    });
+                    // Flat array of values: [1, 2, 3]
+                    entries = parsed.map(v => ({ value: v, label: null }));
+                } else if (parsed !== null && typeof parsed === 'object') {
+                    // Key/value object: {"1": "Tag A", "2": "Tag B"}
+                    entries = Object.entries(parsed).map(([k, v]) => ({ value: k, label: v }));
                 }
+
+                entries.forEach(({ value, label }) => {
+                    const opt = [...this.allOptions].find(o => o.dataset.value == value);
+                    this.selected.push({
+                        value,
+                        label: label ?? (opt ? opt.dataset.label : value),
+                    });
+                });
             } else {
                 if (parsed !== null && parsed !== '') {
-                    const opt = [...this.allOptions].find(o => o.dataset.value === parsed);
+                    const opt = [...this.allOptions].find(o => o.dataset.value == parsed);
                     this.selected = [{ value: parsed, label: opt ? opt.dataset.label : parsed }];
                 }
             }
