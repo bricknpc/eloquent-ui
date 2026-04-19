@@ -77,6 +77,19 @@ export default class Dropdown {
         } catch(e) {}
     }
 
+    _dispatchInputEvent() {
+        if (this.multiple) {
+            // Dispatch on the last hidden input, or the values wrapper if none yet
+            const inputs = this.valuesWrapper.querySelectorAll('input[type="hidden"]');
+            const target = inputs.length ? inputs[inputs.length - 1] : this.valuesWrapper;
+            target.dispatchEvent(new Event('input', { bubbles: true }));
+        } else {
+            if (this.hiddenInput) {
+                this.hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        }
+    }
+
     openPanel() {
         if (this.isOpen) {
             return;
@@ -245,6 +258,8 @@ export default class Dropdown {
                 this.hiddenInput.value = this.selected.length ? this.selected[0].value : '';
             }
         }
+
+        this._dispatchInputEvent();
     }
 
     markSelectedOptions() {
